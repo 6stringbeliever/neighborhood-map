@@ -1,0 +1,27 @@
+{
+  "name": "neighborhood-map",
+  "version": "1.0.0",
+  "description": "Neighborhood map project for the Udacity Front-End Nanodegree.",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/6stringbeliever/neighborhood-map.git"
+  },
+  "keywords": [
+    "map",
+    "googlemap",
+    "knockout"
+  ],
+  "author": "Shaun Kelly @6stringbeliever",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6stringbeliever/neighborhood-map/issues"
+  },
+  "homepage": "https://github.com/6stringbeliever/neighborhood-map",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
+}
