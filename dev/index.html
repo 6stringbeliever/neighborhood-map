@@ -15,6 +15,10 @@
   <body>
     <div id="map-canvas"></div>
     <div id="stadium-list">
+      <form>
+        <input type="search" placeholder="Search stadiums" id="stadium-search" />
+        <button>Search</button>
+      </form>
       <ul data-bind="foreach: stadiums">
         <li data-bind="text: name"></li>
       </ul>
@@ -29,12 +33,23 @@
       function initialize() {
         var mapOptions = {
           zoom: 4,
-          center: { lat: 33.733477, lng: -84.373498 }
+          center: { lat: 39.8282, lng: -98.5795 },
+          disableDefaultUI: true,
+          zoomControl: true,
+          zoomControlOptions: {
+              style: google.maps.ZoomControlStyle.SMALL,
+              position: google.maps.ControlPosition.RIGHT_BOTTOM
+          },
         };
       
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-            
+        
+        /*
+          When the tiles are loaded, we detach all the KO views and reattach
+          them as map controls. This way we get all the goodness of map controls
+          but don't have to worry about when to ko.applyBinding.
+        */
         google.maps.event.addListener(map, 'tilesloaded', function(evt) {
           var control = document.createElement('div');
           control.id = 'stadium-list-control';
