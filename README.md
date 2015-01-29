@@ -9,6 +9,7 @@ Neighborhood map project for the Udacity front-end nanodegree.
 ### Tools
 
 * [Knockout.js](http://knockoutjs.com/)
+* [jQuery](http://jquery.com)
 * [Sass](http://sass-lang.com/)
 * [Gulp](http://gulpjs.com/)
 
@@ -19,3 +20,4 @@ Neighborhood map project for the Udacity front-end nanodegree.
 ### References
 
 * http://markgoodyear.com/2014/01/getting-started-with-gulp/
+* http://stackoverflow.com/questions/17122928/how-to-use-tilesloaded-event-for-google-maps-v3
