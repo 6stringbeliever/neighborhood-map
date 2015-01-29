@@ -31,7 +31,7 @@ gulp.task('sass', function () {
 gulp.task('minifyjs', function() {
   return gulp.src('dev/js/*.js')
              .pipe(uglify())
-             .pipe(gulp.dest('dist'));
+             .pipe(gulp.dest('dist/js/'));
 });
 
 // Move images with PNG or JPG extension
