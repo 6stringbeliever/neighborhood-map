@@ -1,6 +1,8 @@
-# neighborhood-map
+# American Stadiums Map
 
-Neighborhood map project for the Udacity front-end nanodegree.
+Project 5 for the Udacity front-end nanodegree.
+
+(Why yes, that is a big neighborhood...)
 
 ## Installation
 
@@ -21,3 +23,5 @@ Neighborhood map project for the Udacity front-end nanodegree.
 
 * http://markgoodyear.com/2014/01/getting-started-with-gulp/
 * http://stackoverflow.com/questions/17122928/how-to-use-tilesloaded-event-for-google-maps-v3
+* http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/
+* http://jsfiddle.net/stesta/p3ZT4/
