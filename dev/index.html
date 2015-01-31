@@ -20,7 +20,7 @@
         <button>Search</button>
       </form>
       <ul data-bind="foreach: stadiums">
-        <li data-bind="text: name"></li>
+        <li data-bind="text: name, visible: visible"></li>
       </ul>
     </div>
     <script src="js/lib/jquery-2.1.3.min.js"></script>
