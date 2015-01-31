@@ -14,6 +14,7 @@ Project 5 for the Udacity front-end nanodegree.
 * [jQuery](http://jquery.com)
 * [Sass](http://sass-lang.com/)
 * [Gulp](http://gulpjs.com/)
+* [normalize.css](http://necolas.github.io/normalize.css/)
 
 ### APIs
 
