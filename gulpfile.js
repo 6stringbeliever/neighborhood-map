@@ -52,6 +52,12 @@ gulp.task('movelibjs', function() {
   .pipe(gulp.dest('dist/js/lib/'));
 });
 
+// Move js files because we don't want to minify when developing
+gulp.task('movejs', function() {
+  return gulp.src('dev/js/*.js')
+  .pipe(gulp.dest('dist/js//'));
+});
+
 // Move all lib files
 gulp.task('movelib', ['movelibcss', 'movelibjs']);
 
@@ -59,6 +65,7 @@ gulp.task('movelib', ['movelibcss', 'movelibjs']);
 gulp.task('default', ['lint', 'sass', 'minifyhtml', 'minifyjs', 'moveimages']);
 
 // Watch HTML, Sass, JavaScript files and update on change
+// Since this is for dev, we don't minify the js for debugging
 gulp.task('watch', function() {
   // Watch Sass files and update
   gulp.watch('dev/css/*.scss', ['sass']);
@@ -66,6 +73,8 @@ gulp.task('watch', function() {
   // Watch HTML files and minify output
   gulp.watch('dev/*.html', ['minifyhtml']);
   
-  // Watch js files and lint and minify output
-  gulp.watch('dev/js/*.js', ['lint', 'minifyjs']);
+  // Watch js files and lint and move output
+  gulp.watch('dev/js/*.js', ['lint', 'movejs']);
 });
+
+
