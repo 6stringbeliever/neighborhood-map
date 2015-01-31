@@ -18,14 +18,12 @@ $(function() {
     }, this);
     
     /*
-       Returns a Google maps marker options object literal for the stadium.
+       Returns a Google maps marker for the stadium.
     */
-    this.marker = ko.computed(function() {
-      return {
+    this.marker = ko.observable(new google.maps.Marker({
                position: this.mapPoint(),
                title: this.name()
-             };
-    }, this);
+             }));
   };
   
   var stadiumData = [
@@ -54,6 +52,8 @@ $(function() {
     for (var stadium in stadiumData) {
       this.stadiums.push(new Stadium(stadiumData[stadium]));
     }
+    
+    this.selectedStadium = null;
   };
   
   ko.bindingHandlers.googlemap = {
@@ -99,8 +99,9 @@ $(function() {
       for (var i in value().stadiums()) {
         var stadium = value().stadiums()[i];
         if (stadium.visible()) {
-          var marker = new google.maps.Marker(stadium.marker());
-          marker.setMap(bindingContext.$data.map);
+          stadium.marker().setMap(bindingContext.$data.map);
+        } else {
+          stadium.marker().setMap(null);
         }
       }
     }
