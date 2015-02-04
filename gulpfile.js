@@ -69,12 +69,10 @@ gulp.task('default', ['lint', 'sass', 'minifyhtml', 'minifyjs', 'moveimages']);
 gulp.task('watch', function() {
   // Watch Sass files and update
   gulp.watch('dev/css/*.scss', ['sass']);
-  
+
   // Watch HTML files and minify output
   gulp.watch('dev/*.html', ['minifyhtml']);
-  
+
   // Watch js files and lint and move output
   gulp.watch('dev/js/*.js', ['lint', 'movejs']);
 });
-
-
