@@ -1,0 +1,44 @@
+//.stad-list is the stadium list control
+.stad-list {
+  margin: 16px;
+  padding: 0px;
+  background-color: transparentize($window-background-color, 0.3);
+  border: 1px solid $light-border;
+  width: 250px;
+}
+
+.stad-list {
+  input {
+    width: 238px;
+  }
+}
+
+.stad-list-ul {
+  padding: 0 8px;
+  p {
+    font-size: 14px;
+    line-height: 14px;
+    margin: 6px 0px;
+  }
+  li {
+    list-style: none;
+    border-bottom: 1px dotted $light-border;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.stad-list-name {
+  font-weight: bold;
+}
+
+.stad-list-data {
+  color: $secondary-body-color;
+}
+
+// Info window modules
+.info-teams {
+  color: $secondary-body-color;
+  margin: 4px 0;
+}

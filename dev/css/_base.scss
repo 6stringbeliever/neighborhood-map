@@ -1,0 +1,16 @@
+h1 {
+  color: $main-heading-color;
+}
+
+p, li, input, button {
+  font: normal 16px $main-font-stack;
+  color: $main-body-color;
+}
+
+input {
+  padding: 4px;
+}
+
+button, input[submit] {
+  padding: 6px;
+}

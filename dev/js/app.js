@@ -42,7 +42,7 @@ $(function() {
       'lng': -84.389444,
       'teams': [{ 'name': 'Atlanta Braves',
                   'sport': 'baseball',
-                  'league': 'mlb' }]
+                  'league': 'MLB' }]
     },
     {
       'name': 'Target Field',
@@ -50,7 +50,7 @@ $(function() {
       'lng': -93.278333,
       'teams': [{ 'name': 'Minnesota Twins',
                   'sport': 'baseball',
-                  'league': 'mlb' }]
+                  'league': 'MLB' }]
     },
     {
       'name': 'O.co Coliseum',
@@ -58,10 +58,10 @@ $(function() {
       'lng': -122.200556,
       'teams': [{ 'name': 'Oakland Athletics',
                   'sport': 'baseball',
-                  'league': 'mlb' },
+                  'league': 'MLB' },
                 { 'name': 'Oakland Raiders',
                   'sport': 'football',
-                  'league': 'nfl'}]
+                  'league': 'NFL'}]
     }
   ];
 
