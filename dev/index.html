@@ -15,7 +15,7 @@
     </style>
   </head>
   <body>
-    <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums }"></div>
+    <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums }, infowindow: { stadium: selectedStadium }"></div>
     <div id ="controls">
       <div id="stadium-list" class="stad-list">
         <input type="search" placeholder="Search stadiums" id="stadium-search" />

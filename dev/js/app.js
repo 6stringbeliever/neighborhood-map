@@ -70,8 +70,7 @@ $(function() {
 
     self.map = null;
 
-    self.infowindow = new google.maps.InfoWindow(
-        { content: '<div id="info-window"></div>' });
+    self.infowindow = null;
 
     self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
@@ -81,12 +80,7 @@ $(function() {
     self.selectedStadium = ko.observable(null);
 
     self.showMarker = function(stadium) {
-      console.log("Clicked " + stadium.name());
-      try {
-        self.infowindow.close();
-      } catch (e) {
-        console.log(e);
-      }
+      self.selectedStadium(stadium);
     };
   };
 
@@ -106,21 +100,20 @@ $(function() {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
         },
       };
-      var ctx = bindingContext;
+      var ctx = bindingContext.$data;
 
-      ctx.$data.map = new google.maps.Map(element, mapOptions);
+      ctx.map = new google.maps.Map(element, mapOptions);
 
       /*
         When the tiles are loaded, we detach all the KO views and reattach
         them as map controls. This way we get all the goodness of map controls
         but don't have to worry about when to ko.applyBinding.
       */
-      google.maps.event.addListener(ctx.$data.map, 'tilesloaded', function(e) {
+      google.maps.event.addListener(ctx.map, 'tilesloaded', function(e) {
         var control = document.createElement('div');
         control.id = 'stadium-list-control';
         var list = $('#stadium-list').detach();
-        ctx.$data.map.controls[google.maps.ControlPosition.TOP_RIGHT]
-                                                              .push(control);
+        ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
         list.appendTo('#stadium-list-control');
       });
     },
@@ -132,12 +125,12 @@ $(function() {
     update: function(element, valueAccessor, allBindings,
                       viewModel, bindingContext) {
       var value = valueAccessor;
-      var ctx = bindingContext;
+      var ctx = bindingContext.$data;
 
       for (var i in value().stadiums()) {
         var stadium = value().stadiums()[i];
         if (stadium.visible()) {
-          stadium.marker().setMap(ctx.$data.map);
+          stadium.marker().setMap(ctx.map);
           addClickListener(stadium.marker(), stadium, ctx);
         } else {
           stadium.marker().setMap(null);
@@ -146,12 +139,38 @@ $(function() {
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          var infowindow = bindingContext.$data.infowindow;
-          infowindow.close();
-          bindingContext.$data.selectedStadium(data);
-          infowindow.open(bindingContext.$data.map,marker);
-          addDOMListener(infowindow);
+          bindingContext.selectedStadium(data);
         });
+      }
+
+
+    }
+  };
+
+  ko.bindingHandlers.infowindow = {
+    /*
+      On init, create the info window.
+    */
+    init: function(element, valueAccessor, allBindings,
+                    viewModel, bindingContext) {
+      var ctx = bindingContext.$data;
+      ctx.infowindow = new google.maps.InfoWindow(
+        { content: '<div id="info-window"></div>' });
+    },
+
+    /*
+      On update of the selected stadium, show the infowindow in
+      the appropriate spot or hide if null.
+    */
+    update: function(element, valueAccessor, allBindings,
+                      viewModel, bindingContext) {
+      var ctx = bindingContext.$data;
+      var infowindow = ctx.infowindow;
+      var stadium = valueAccessor().stadium();
+      infowindow.close();
+      if (stadium !== null) {
+        infowindow.open(ctx.map, stadium.marker());
+        addDOMListener(infowindow);
       }
 
       function addDOMListener(infowindow) {
