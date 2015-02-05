@@ -1,0 +1,7 @@
+// Vendor prefix transitions
+@mixin transition($property, $time, $effect) {
+  -webkit-transition: $property $time $effect;
+  -moz-transition: $property $time $effect;
+  -o-transition: $property $time $effect;
+  transition: $property $time $effect;
+}

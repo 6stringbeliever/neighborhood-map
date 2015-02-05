@@ -20,7 +20,7 @@
       <div id="stadium-list" class="stad-list">
         <input type="search" placeholder="Search stadiums" id="stadium-search" />
         <ul data-bind="foreach: stadiums" class="stad-list-ul">
-          <li data-bind="visible: visible">
+          <li data-bind="visible: visible, click: $parent.showMarker">
             <p data-bind="text: name" class="stad-list-name"></p>
             <div data-bind="foreach: teams">
               <p class="stad-list-data"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>

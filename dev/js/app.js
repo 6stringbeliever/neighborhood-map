@@ -68,17 +68,26 @@ $(function() {
   var ViewModel = function() {
     var self = this;
 
-    this.map = null;
+    self.map = null;
 
-    this.infowindow = new google.maps.InfoWindow(
+    self.infowindow = new google.maps.InfoWindow(
         { content: '<div id="info-window"></div>' });
 
-    this.stadiums = ko.observableArray([]);
+    self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
-      this.stadiums.push(new Stadium(stadiumData[stadium]));
+      self.stadiums.push(new Stadium(stadiumData[stadium]));
     }
 
-    this.selectedStadium = ko.observable(null);
+    self.selectedStadium = ko.observable(null);
+
+    self.showMarker = function(stadium) {
+      console.log("Clicked " + stadium.name());
+      try {
+        self.infowindow.close();
+      } catch (e) {
+        console.log(e);
+      }
+    };
   };
 
   ko.bindingHandlers.googlemap = {

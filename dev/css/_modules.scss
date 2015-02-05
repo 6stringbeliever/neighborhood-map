@@ -18,11 +18,17 @@
   p {
     font-size: 14px;
     line-height: 14px;
-    margin: 6px 0px;
+    margin: 4px 0px;
   }
   li {
+    padding: 2px 0;
     list-style: none;
     border-bottom: 1px dotted $light-border;
+    @include transition(background-color, 0.5s, ease);
+  }
+  li:hover {
+    cursor: pointer;
+    background-color: $hover-background-color;
   }
   li:last-child {
     border-bottom: none;
