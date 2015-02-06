@@ -3,14 +3,21 @@ h1 {
 }
 
 p, li, input, button {
-  font: normal 16px $main-font-stack;
+  font: normal 14px $main-font-stack;
   color: $main-body-color;
 }
 
-input {
-  padding: 4px;
+h1 {
+  margin: 8px 0;
 }
 
-button, input[submit] {
+input {
   padding: 6px;
+  font-size: 16px;
+}
+
+button, input[type="submit"] {
+  padding: 6px;
+  min-width: 48px;
+  min-height: 48px;
 }

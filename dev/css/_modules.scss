@@ -2,19 +2,22 @@
 .stad-list {
   margin: 16px;
   padding: 0px;
-  background-color: transparentize($window-background-color, 0.3);
-  border: 1px solid $light-border;
+  // background-color: transparentize($window-background-color, 0.3);
+  // border: 1px solid $light-border;
   width: 250px;
 }
 
 .stad-list {
   input {
-    width: 238px;
+    width: 234px;
   }
 }
 
 .stad-list-ul {
-  padding: 0 8px;
+  margin: 4px 0 0 0;
+  padding: 4px 8px;
+  background-color: transparentize($window-background-color, 0.3);
+  border: 1px solid $light-border;
   p {
     font-size: 14px;
     line-height: 14px;
