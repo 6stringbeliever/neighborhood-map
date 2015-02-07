@@ -17,7 +17,7 @@
     <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums }, infowindow: { stadium: selectedStadium }"></div>
     <div id ="controls">
       <div id="stadium-list" class="stad-list">
-        <input type="search" placeholder="Search stadiums" id="stadium-search" />
+        <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="event: {input: filterList}"/>
         <ul class="stad-list-filters" data-bind="foreach: filters">
           <li data-bind="text: league, css: {'stad-filter-on': display, 'stad-filter-off': !display }, click: $parent.toggleFilter"></li>
         </ul>

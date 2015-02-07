@@ -33,6 +33,19 @@ $(function() {
                position: this.mapPoint(),
                title: this.name()
              }));
+
+    /*
+       Returns a single string containing the searchable text for this
+       stadium for searching more than just the name. Converted to
+       uppercase so search is case independent.
+    */
+    this.searchString = ko.computed(function() {
+      var searchString = this.name();
+      for (var i = 0; i < this.teams().length; i++) {
+        searchString += " " + this.teams()[i].name();
+      }
+      return searchString.toUpperCase();
+    }, this);
   };
 
   var Filter = function(data) {
@@ -124,6 +137,15 @@ $(function() {
 
     self.toggleFilter = function(filter) {
       filter.display(!filter.display());
+    };
+
+    self.filterList = function() {
+      var stad;
+      var search = $('#stadium-search').val().toUpperCase();
+      for (var i = 0; i < self.stadiums().length; i++) {
+        stad = self.stadiums()[i];
+        stad.visible(stad.searchString().indexOf(search) >= 0);
+      }
     };
   };
 
