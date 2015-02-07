@@ -12,7 +12,6 @@ $(function() {
 
     for (var i = 0; i < data.teams.length; i++) {
       this.teams.push({'name': ko.observable(data.teams[i].name),
-                       'sport': ko.observable(data.teams[i].sport),
                        'league': ko.observable(data.teams[i].league)});
     }
 
@@ -46,7 +45,6 @@ $(function() {
       'lat':  33.735278,
       'lng': -84.389444,
       'teams': [{ 'name': 'Atlanta Braves',
-                  'sport': 'baseball',
                   'league': 'MLB' }]
     },
     {
@@ -54,7 +52,6 @@ $(function() {
       'lat': 44.981667,
       'lng': -93.278333,
       'teams': [{ 'name': 'Minnesota Twins',
-                  'sport': 'baseball',
                   'league': 'MLB' }]
     },
     {
@@ -62,11 +59,32 @@ $(function() {
       'lat': 37.751667,
       'lng': -122.200556,
       'teams': [{ 'name': 'Oakland Athletics',
-                  'sport': 'baseball',
                   'league': 'MLB' },
                 { 'name': 'Oakland Raiders',
-                  'sport': 'football',
                   'league': 'NFL'}]
+    },
+    {
+      'name': 'Bridgestone Arena',
+      'lat': 36.159167,
+      'lng': -86.778611,
+      'teams': [{ 'name': 'Nashville Predators',
+                  'league': 'NHL' }]
+    },
+    {
+      'name': 'American Airlines Center',
+      'lat': 32.790556,
+      'lng': -96.810278,
+      'teams': [{ 'name': 'Dallas Stars',
+                  'league': 'NHL' },
+                { 'name': 'Dallas Mavericks',
+                  'league': 'NBA' }]
+    },
+    {
+      'name': 'Columbus Crew Stadium',
+      'lat': 40.009444,
+      'lng': -82.991111,
+      'teams': [{ 'name': 'Columbus Crew',
+                  'league': 'MLS' }]
     }
   ];
 
