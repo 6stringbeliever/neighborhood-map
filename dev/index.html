@@ -18,6 +18,9 @@
     <div id ="controls">
       <div id="stadium-list" class="stad-list">
         <input type="search" placeholder="Search stadiums" id="stadium-search" />
+        <ul class="stad-list-filters" data-bind="foreach: filters">
+          <li data-bind="text: league, css: {'stad-filter-on': display, 'stad-filter-off': !display }, click: $parent.toggleFilter"></li>
+        </ul>
         <ul data-bind="foreach: stadiums" class="stad-list-ul">
           <li data-bind="visible: visible, click: $parent.showMarker">
             <p data-bind="text: name" class="stad-list-name"></p>

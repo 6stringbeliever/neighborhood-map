@@ -2,12 +2,7 @@
 .stad-list {
   margin: 16px;
   padding: 0px;
-  // background-color: transparentize($window-background-color, 0.3);
-  // border: 1px solid $light-border;
   width: 250px;
-}
-
-.stad-list {
   input {
     width: 234px;
   }
@@ -24,7 +19,7 @@
     margin: 4px 0px;
   }
   li {
-    padding: 2px 0;
+    padding: 2px;
     list-style: none;
     border-bottom: 1px dotted $light-border;
     @include transition(background-color, 0.5s, ease);
@@ -44,6 +39,25 @@
 
 .stad-list-data {
   color: $secondary-body-color;
+}
+
+// Filters module
+.stad-list-filters {
+  margin: 4px 0 0 0;
+  padding: 0;
+  li {
+    padding: 2px;
+    margin: 0 4px 0 0;
+    display: inline-block;
+    list-style: none;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px dotted $light-border;
+    background-color: transparentize($window-background-color, 0.3);
+  }
+  li:last-child {
+    margin-right: 0px;
+  }
 }
 
 // Info window modules

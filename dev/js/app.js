@@ -36,6 +36,11 @@ $(function() {
              }));
   };
 
+  var Filter = function(data) {
+    this.league = ko.observable(data.league);
+    this.display = ko.observable(data.display);
+  };
+
   var stadiumData = [
     { 'name': 'Turner Field',
       'lat':  33.735278,
@@ -65,12 +70,28 @@ $(function() {
     }
   ];
 
+  var filtersData = [{'league': 'MLB',
+                      'display': true},
+                     {'league': 'NFL',
+                      'display': true},
+                     {'league': 'NBA',
+                      'display': true},
+                     {'league': 'NHL',
+                      'display': true},
+                     {'league': 'MLS',
+                      'display': true}];
+
   var ViewModel = function() {
     var self = this;
 
     self.map = null;
 
     self.infowindow = null;
+
+    self.filters = ko.observableArray([]);
+    for (var filter in filtersData) {
+      self.filters.push(new Filter(filtersData[filter]));
+    }
 
     self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
@@ -81,6 +102,10 @@ $(function() {
 
     self.showMarker = function(stadium) {
       self.selectedStadium(stadium);
+    };
+
+    self.toggleFilter = function(filter) {
+      filter.display(!filter.display());
     };
   };
 
