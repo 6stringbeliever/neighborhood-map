@@ -139,10 +139,26 @@ $(function() {
 
     self.filterList = function() {
       var stad;
-      var search = $('#stadium-search').val().toUpperCase();
-      for (var i = 0; i < self.stadiums().length; i++) {
+      var visible;
+      var i, j;
+      /* Convert the value in the search box to all upper case, trim white
+         space and split into an array of terms. */
+      var searchstring = $('#stadium-search').val().toUpperCase().trim();
+      var searchterms = searchstring.split(/\s+/);
+
+      /* Loop through all the stadiums. Check each stadiums computed search
+         string against all the search terms we just computed. We only need
+         one match to show the stadium, so break as soon as we get a match. */
+      for (i = 0; i < self.stadiums().length; i++) {
         stad = self.stadiums()[i];
-        stad.visible(stad.searchString().indexOf(search) >= 0);
+        visible = false;
+        for (j = 0; j < searchterms.length; j++) {
+          if (stad.searchString().indexOf(searchterms[j]) >= 0) {
+            visible = true;
+            break;
+          }
+        }
+        stad.visible(visible);
       }
     };
   };
