@@ -101,32 +101,30 @@ $(function() {
     }
   ];
 
-  var filtersData = [{'league': 'MLB',
-                      'display': true},
-                     {'league': 'NFL',
-                      'display': true},
-                     {'league': 'NBA',
-                      'display': true},
-                     {'league': 'NHL',
-                      'display': true},
-                     {'league': 'MLS',
-                      'display': true}];
-
   var ViewModel = function() {
     var self = this;
+    var leagues = [];
+    var i;
 
     self.map = null;
 
     self.infowindow = null;
 
     self.filters = ko.observableArray([]);
-    for (var filter in filtersData) {
-      self.filters.push(new Filter(filtersData[filter]));
-    }
 
     self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
+      for (i = 0; i < stadiumData[stadium].teams.length; i++) {
+        var team = stadiumData[stadium].teams[i];
+        if (leagues.indexOf(team.league) < 0) {
+          leagues.push(team.league);
+        }
+      }
+    }
+
+    for (i = 0; i < leagues.length; i++) {
+      self.filters.push(new Filter({ 'league': leagues[i], 'display': true }));
     }
 
     self.selectedStadium = ko.observable(null);
@@ -207,8 +205,6 @@ $(function() {
           bindingContext.selectedStadium(data);
         });
       }
-
-
     }
   };
 
