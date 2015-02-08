@@ -46,6 +46,17 @@ $(function() {
       }
       return searchString.toUpperCase();
     }, this);
+
+    /*
+       Returns an array of leagues that this stadium's teams play in.
+    */
+    this.inLeagues = ko.computed(function() {
+      var leagues = [];
+      for (var i = 0; i < this.teams().length; i++) {
+        leagues.push(this.teams()[i].league());
+      }
+      return leagues;
+    }, this);
   };
 
   var Filter = function(data) {
@@ -135,8 +146,11 @@ $(function() {
 
     self.toggleFilter = function(filter) {
       filter.display(!filter.display());
+      self.filterList();
     };
 
+    // TODO: apply the last class via jquery, not css selector
+    // TODO: display some sort of useful message when search returns no stadiums
     self.filterList = function() {
       var stad;
       var visible;
@@ -145,22 +159,48 @@ $(function() {
          space and split into an array of terms. */
       var searchstring = $('#stadium-search').val().toUpperCase().trim();
       var searchterms = searchstring.split(/\s+/);
+      var visibleleagues = [];
+      for (var filter in self.filters()) {
+        if (self.filters()[filter].display()) {
+          visibleleagues.push(self.filters()[filter].league());
+        }
+      }
 
-      /* Loop through all the stadiums. Check each stadiums computed search
+      /* Loop through all the stadiums. Hide the stadium if it doesn't match
+         the league filters. Then check each stadium's computed search
          string against all the search terms we just computed. We only need
          one match to show the stadium, so break as soon as we get a match. */
       for (i = 0; i < self.stadiums().length; i++) {
         stad = self.stadiums()[i];
         visible = false;
-        for (j = 0; j < searchterms.length; j++) {
-          if (stad.searchString().indexOf(searchterms[j]) >= 0) {
-            visible = true;
-            break;
+        if (isStadiumLeagueDisplayed(stad, visibleleagues)) {
+          for (j = 0; j < searchterms.length; j++) {
+            if (stad.searchString().indexOf(searchterms[j]) >= 0) {
+              visible = true;
+              break;
+            }
           }
         }
         stad.visible(visible);
       }
     };
+  };
+
+  /*
+    Compares the leagues of all of a stadium's teams against
+    the list of filtered leagues. Returns true if the stadium has a team
+    in a league that is currently being shown.
+  */
+  var isStadiumLeagueDisplayed = function(stadium, filterleagues) {
+    var displayed = false;
+    var inleagues = stadium.inLeagues();
+    for (var league in inleagues) {
+      if (filterleagues.indexOf(inleagues[league]) >= 0) {
+        displayed = true;
+        break;
+      }
+    }
+    return displayed;
   };
 
   ko.bindingHandlers.googlemap = {
