@@ -166,24 +166,45 @@ $(function() {
         }
       }
 
+      /*
+         Close the infowindow on the selected stadium if it doesn't pass the
+         filters, otherwise, it will open back up again if you revert to no
+         filters. You have to do this now because you can't close an
+         infowindow attached to a marker that's not attached to the map.
+      */
+      if (self.selectedStadium() !== null &&
+          !stadiumClearsFilters(self.selectedStadium(), searchterms, visibleleagues)) {
+        self.selectedStadium(null);
+      }
+
       /* Loop through all the stadiums. Hide the stadium if it doesn't match
          the league filters. Then check each stadium's computed search
          string against all the search terms we just computed. We only need
          one match to show the stadium, so break as soon as we get a match. */
       for (i = 0; i < self.stadiums().length; i++) {
         stad = self.stadiums()[i];
-        visible = false;
-        if (isStadiumLeagueDisplayed(stad, visibleleagues)) {
-          for (j = 0; j < searchterms.length; j++) {
-            if (stad.searchString().indexOf(searchterms[j]) >= 0) {
-              visible = true;
-              break;
-            }
-          }
-        }
+        visible = stadiumClearsFilters(stad, searchterms, visibleleagues);
         stad.visible(visible);
       }
     };
+  };
+
+  /*
+    Returns true if the stadium passed in clears all the filters. First,
+    its search string must match at least one search term. Second, at least
+    one of its teams must be in a visible league.
+  */
+  var stadiumClearsFilters = function(stadium, searchterms, visibleleagues) {
+    visible = false;
+    if (isStadiumLeagueDisplayed(stadium, visibleleagues)) {
+      for (j = 0; j < searchterms.length; j++) {
+        if (stadium.searchString().indexOf(searchterms[j]) >= 0) {
+          visible = true;
+          break;
+        }
+      }
+    }
+    return visible;
   };
 
   /*
