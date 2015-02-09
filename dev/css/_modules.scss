@@ -55,6 +55,9 @@
     border: 1px dotted $light-border;
     background-color: transparentize($window-background-color, 0.3);
   }
+  li:hover {
+    cursor: pointer;
+  }
   li:last-child {
     margin-right: 0px;
   }
