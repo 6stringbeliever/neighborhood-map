@@ -26,3 +26,5 @@ Project 5 for the Udacity front-end nanodegree.
 * http://stackoverflow.com/questions/17122928/how-to-use-tilesloaded-event-for-google-maps-v3
 * http://testasoftware.com/steve/blog/knockout-binding-handler-for-google-maps/
 * http://jsfiddle.net/stesta/p3ZT4/
+* http://stackoverflow.com/questions/11154300/get-last-visible-element-using-jquery
+* http://www.strathweb.com/2012/07/knockout-js-pro-tips-working-with-observable-arrays/

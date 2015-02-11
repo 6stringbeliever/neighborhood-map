@@ -114,6 +114,7 @@ $(function() {
 
   var ViewModel = function() {
     var self = this;
+    var league;
     var leagues = [];
     var i;
 
@@ -121,8 +122,17 @@ $(function() {
 
     self.infowindow = null;
 
+    self.searchtext = ko.observable("");
+    self.searchtext.extend({ rateLimit: {
+                                timeout: 400,
+                                method: "notifyWhenChangesStop" } });
+
+
     self.filters = ko.observableArray([]);
 
+    // TODO: sort the list alphabetically
+    // TODO: refactor for performance (don't push all values in one by because)
+    //       that will force redraws each time.
     self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
@@ -134,10 +144,6 @@ $(function() {
       }
     }
 
-    for (i = 0; i < leagues.length; i++) {
-      self.filters.push(new Filter({ 'league': leagues[i], 'display': true }));
-    }
-
     self.selectedStadium = ko.observable(null);
 
     self.showMarker = function(stadium) {
@@ -146,18 +152,18 @@ $(function() {
 
     self.toggleFilter = function(filter) {
       filter.display(!filter.display());
-      self.filterList();
     };
 
     // TODO: apply the last class via jquery, not css selector
     // TODO: display some sort of useful message when search returns no stadiums
     self.filterList = function() {
+      console.log('yo');
       var stad;
       var visible;
       var i, j;
       /* Convert the value in the search box to all upper case, trim white
          space and split into an array of terms. */
-      var searchstring = $('#stadium-search').val().toUpperCase().trim();
+      var searchstring = self.searchtext().toUpperCase().trim();
       var searchterms = searchstring.split(/\s+/);
       var visibleleagues = [];
       for (var filter in self.filters()) {
@@ -187,6 +193,14 @@ $(function() {
         stad.visible(visible);
       }
     };
+
+    self.searchtext.subscribe(self.filterList);
+
+    for (i = 0; i < leagues.length; i++) {
+      league = new Filter({ 'league': leagues[i], 'display': true });
+      league.display.subscribe(self.filterList);
+      self.filters.push(league);
+    }
   };
 
   /*
@@ -222,6 +236,21 @@ $(function() {
       }
     }
     return displayed;
+  };
+
+  ko.bindingHandlers.lastitem = {
+    /*
+      On update, apply a specified class to the last child item of the list.
+      First clear any instance of the class so previous updates don't stick
+      around.
+    */
+    update: function(element, valueAccessor, allBindings,
+                    viewModel, bindingContext) {
+      var val = ko.unwrap(valueAccessor());
+      var classtoapply = val.class;
+      $(classtoapply).removeClass(classtoapply);
+      $(element).children().filter(':visible :last').addClass(classtoapply);
+    }
   };
 
   ko.bindingHandlers.googlemap = {

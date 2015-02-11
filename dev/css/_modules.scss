@@ -2,9 +2,9 @@
 .stad-list {
   margin: 16px;
   padding: 0px;
-  width: 250px;
+  width: 246px;
   input {
-    width: 234px;
+    width: 230px;
   }
 }
 
@@ -28,9 +28,10 @@
     cursor: pointer;
     background-color: $hover-background-color;
   }
-  li:last-child {
-    border-bottom: none;
-  }
+}
+
+.stad-list-ul .stad-list-last {
+  border-bottom: none;
 }
 
 .stad-list-name {
