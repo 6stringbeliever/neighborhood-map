@@ -28,10 +28,9 @@
     cursor: pointer;
     background-color: $hover-background-color;
   }
-}
-
-.stad-list-ul .stad-list-last {
-  border-bottom: none;
+  li:last-child, .stad-list-last {
+    border-bottom: none;
+  }
 }
 
 .stad-list-name {

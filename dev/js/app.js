@@ -157,7 +157,6 @@ $(function() {
     // TODO: apply the last class via jquery, not css selector
     // TODO: display some sort of useful message when search returns no stadiums
     self.filterList = function() {
-      console.log('yo');
       var stad;
       var visible;
       var i, j;
@@ -192,10 +191,14 @@ $(function() {
         visible = stadiumClearsFilters(stad, searchterms, visibleleagues);
         stad.visible(visible);
       }
+      setLastChildToClass(".stad-list-ul", "stad-list-last");
     };
 
+    /*
+       Subscribe the search field and all league filters to the filter method
+       so the list is filtered any time either is changed.
+    */
     self.searchtext.subscribe(self.filterList);
-
     for (i = 0; i < leagues.length; i++) {
       league = new Filter({ 'league': leagues[i], 'display': true });
       league.display.subscribe(self.filterList);
@@ -238,19 +241,15 @@ $(function() {
     return displayed;
   };
 
-  ko.bindingHandlers.lastitem = {
-    /*
-      On update, apply a specified class to the last child item of the list.
-      First clear any instance of the class so previous updates don't stick
-      around.
-    */
-    update: function(element, valueAccessor, allBindings,
-                    viewModel, bindingContext) {
-      var val = ko.unwrap(valueAccessor());
-      var classtoapply = val.class;
-      $(classtoapply).removeClass(classtoapply);
-      $(element).children().filter(':visible :last').addClass(classtoapply);
-    }
+  /*
+     Sets the last direct child of the passed in element to include the passed
+     in class. Remove the class from other elements first. This let's us
+     manually set the last child class on the stadium list since the
+     :last-child css selector doesn't understand when children aren't visible.
+  */
+  var setLastChildToClass = function(element, classtoapply) {
+    $("." + classtoapply).removeClass(classtoapply);
+    $(element).children().filter(':visible:last').addClass(classtoapply);
   };
 
   ko.bindingHandlers.googlemap = {
