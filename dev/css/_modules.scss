@@ -1,5 +1,5 @@
 //.stad-list is the stadium list control
-.stad-list {
+.stad-list-control {
   margin: 16px;
   padding: 0px;
   width: 246px;
@@ -8,11 +8,16 @@
   }
 }
 
-.stad-list-ul {
+.stad-list {
   margin: 4px 0 0 0;
   padding: 4px 8px;
   background-color: transparentize($window-background-color, 0.3);
   border: 1px solid $light-border;
+}
+
+.stad-list-ul {
+  margin: 0;
+  padding: 0;
   p {
     font-size: 14px;
     line-height: 14px;

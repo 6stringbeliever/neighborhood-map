@@ -129,6 +129,7 @@ $(function() {
 
 
     self.filters = ko.observableArray([]);
+    self.emptysearch = ko.observable(false);
 
     // TODO: sort the list alphabetically
     // TODO: refactor for performance (don't push all values in one by because)
@@ -154,8 +155,6 @@ $(function() {
       filter.display(!filter.display());
     };
 
-    // TODO: apply the last class via jquery, not css selector
-    // TODO: display some sort of useful message when search returns no stadiums
     self.filterList = function() {
       var stad;
       var visible;
@@ -165,6 +164,7 @@ $(function() {
       var searchstring = self.searchtext().toUpperCase().trim();
       var searchterms = searchstring.split(/\s+/);
       var visibleleagues = [];
+      var emptysearch = true;
       for (var filter in self.filters()) {
         if (self.filters()[filter].display()) {
           visibleleagues.push(self.filters()[filter].league());
@@ -190,7 +190,11 @@ $(function() {
         stad = self.stadiums()[i];
         visible = stadiumClearsFilters(stad, searchterms, visibleleagues);
         stad.visible(visible);
+        if (emptysearch && visible) {
+          emptysearch = false;
+        }
       }
+      self.emptysearch(emptysearch);
       setLastChildToClass(".stad-list-ul", "stad-list-last");
     };
 
