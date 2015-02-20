@@ -16,6 +16,13 @@ $(function() {
     }
 
     /*
+       We'll get these items from Foursquare when the infowindow is displayed.
+    */
+    this.foursquareid = ko.observable(null);
+    this.address = ko.observableArray([]);
+    this.photos = ko.observableArray([]);
+
+    /*
        Returns the location in a format that's useful for
        Google Maps.
      */
@@ -256,6 +263,65 @@ $(function() {
     $(element).children().filter(':visible:last').addClass(classtoapply);
   };
 
+
+  /*
+      Checks if stadium data has already been downloaded from API sources.
+      If not, download asynchronously and update when complete.
+  */
+  var getStadiumData = function(stad) {
+    if (stad.foursquareid() === null) {
+      $.ajax({
+        dataType: "json",
+        url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
+        success: function(data) {
+          var addr, venue;
+          venue = data.response.venues[0];
+          stad.foursquareid(venue.id);
+          for (addr in venue.location.formattedAddress) {
+            stad.address.push(venue.location.formattedAddress[addr]);
+          }
+          getFoursquarePhotos(stad);
+        },
+        error: function() {
+          console.log("Error getting foursquare data");
+        }
+      });
+    } else {
+      getFoursquarePhotos(stad);
+    }
+  };
+
+
+  /*
+      Checks if photos have already been downloaded from Foursquare. If not,
+      download asynchronously and update when complete.
+  */
+  var getFoursquarePhotos = function(stad) {
+    console.log("id " + stad.foursquareid());
+    console.log("# photos " + stad.photos().length);
+    if (stad.foursquareid() !== null && stad.photos().length === 0) {
+      console.log("getting photos");
+      console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
+      $.ajax({
+        dataType: "json",
+        url: buildFoursquarePhotosQuery(stad.foursquareid()),
+        success: function(data) {
+          console.log("got photos");
+          var photos = data.response.photos.items;
+          for (var photo in photos) {
+            var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
+            stad.photos().push(ko.observable(photourl));
+          }
+        },
+        error: function(jqhxr, status, error) {
+          console.log("don't got photos");
+        }
+      });
+    } else {
+      console.log("already have photos");
+    }
+  };
+
   ko.bindingHandlers.googlemap = {
     /*
       On init, create the map and attach the map controls.
@@ -341,6 +407,7 @@ $(function() {
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
+        getStadiumData(stadium);
       }
 
       function addDOMListener(infowindow) {
@@ -351,6 +418,24 @@ $(function() {
       }
     }
   };
+
+
+  function buildFoursquareSearchQuery(lat, long, name) {
+    var query = "https://api.foursquare.com/v2/venues/search" +
+      "?client_id=HPTKFD3QU12Y0FPPQ0OVTZ51RFAYJ5L4104MNJJL0CW2HEEQ" +
+      "&client_secret=YLBK5PYZW4FZNK0QIQX5SCJOQS4TYYEHR2LZ2SHYGJLXJCLE" +
+      "&v=20130815&ll=" + lat + "," + long + "&intent=match&query=";
+    query += encodeURIComponent(name);
+    return query;
+  }
+
+  function buildFoursquarePhotosQuery(id) {
+    var query = "https://api.foursquare.com/v2/venues/" + id + "/photos?" +
+      "client_id=HPTKFD3QU12Y0FPPQ0OVTZ51RFAYJ5L4104MNJJL0CW2HEEQ" +
+      "&client_secret=YLBK5PYZW4FZNK0QIQX5SCJOQS4TYYEHR2LZ2SHYGJLXJCLE" +
+      "&v=20130815";
+    return query;
+  }
 
   ko.applyBindings(new ViewModel());
 });

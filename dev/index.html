@@ -38,11 +38,22 @@
         <div data-bind="foreach: teams">
           <p class="info-teams"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div data-bind="visible: !foursquareid()">
+          Getting data.
+        </div>
+        <div data-bind="visible: foursquareid">
+          <div data-bind="foreach: address">
+            <p class="address" data-bind="text: $data"></p>
+          </div>
+          <div data-bind="foreach: photos">
+            <p><img data-bind="attr: {src: $data}" /></p>
+          </div>
+        </div>
       </div>
     </div>
     <script src="js/lib/jquery-2.1.3.min.js"></script>
     <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/lib/wiky.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANhKvLu00D4HzEP84t0sGNvSwWmuthcKg">
     </script>
