@@ -21,6 +21,7 @@ $(function() {
     this.foursquareid = ko.observable(null);
     this.address = ko.observableArray([]);
     this.photos = ko.observableArray([]);
+    this.photos.extend({rateLimit: 50});
 
     /*
        Returns the location in a format that's useful for
@@ -268,8 +269,12 @@ $(function() {
       Checks if stadium data has already been downloaded from API sources.
       If not, download asynchronously and update when complete.
   */
-  var getStadiumData = function(stad) {
+  // TODO probably need to use a function better than just match since
+  // target field is coming back as the bar there instead of the stadium
+  var getFoursquareData = function(stad) {
     if (stad.foursquareid() === null) {
+      console.log("getting 4sq data");
+      //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
       $.ajax({
         dataType: "json",
         url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
@@ -280,7 +285,6 @@ $(function() {
           for (addr in venue.location.formattedAddress) {
             stad.address.push(venue.location.formattedAddress[addr]);
           }
-          getFoursquarePhotos(stad);
         },
         error: function() {
           console.log("Error getting foursquare data");
@@ -297,11 +301,9 @@ $(function() {
       download asynchronously and update when complete.
   */
   var getFoursquarePhotos = function(stad) {
-    console.log("id " + stad.foursquareid());
-    console.log("# photos " + stad.photos().length);
     if (stad.foursquareid() !== null && stad.photos().length === 0) {
       console.log("getting photos");
-      console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
+      //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
       $.ajax({
         dataType: "json",
         url: buildFoursquarePhotosQuery(stad.foursquareid()),
@@ -310,7 +312,7 @@ $(function() {
           var photos = data.response.photos.items;
           for (var photo in photos) {
             var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
-            stad.photos().push(ko.observable(photourl));
+            stad.photos.push(ko.observable(photourl));
           }
         },
         error: function(jqhxr, status, error) {
@@ -400,6 +402,7 @@ $(function() {
     */
     update: function(element, valueAccessor, allBindings,
                       viewModel, bindingContext) {
+      console.log("Update info window");
       var ctx = bindingContext.$data;
       var infowindow = ctx.infowindow;
       var stadium = valueAccessor().stadium();
@@ -407,7 +410,7 @@ $(function() {
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
-        getStadiumData(stadium);
+        getFoursquareData(stadium);
       }
 
       function addDOMListener(infowindow) {

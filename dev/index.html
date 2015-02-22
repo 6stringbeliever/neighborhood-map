@@ -45,6 +45,8 @@
           <div data-bind="foreach: address">
             <p class="address" data-bind="text: $data"></p>
           </div>
+        </div>
+        <div data-bind="visible: photos().length > 0">
           <div data-bind="foreach: photos">
             <p><img data-bind="attr: {src: $data}" /></p>
           </div>
