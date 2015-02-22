@@ -145,9 +145,10 @@ $(function() {
     self.emptysearch = ko.observable(false);
 
     // TODO: sort the list alphabetically
-    // TODO: refactor for performance (don't push all values in one by because)
-    //       that will force redraws each time. or maybe rate limit.
     self.stadiums = ko.observableArray([]);
+    self.stadiums.extend({ rateLimit: {
+                              timeout: 10,
+                              method: "notifyWhenChangesStop"} });
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
       for (i = 0; i < stadiumData[stadium].teams.length; i++) {
