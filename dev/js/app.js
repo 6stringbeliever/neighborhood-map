@@ -21,6 +21,11 @@ $(function() {
     this.foursquareid = ko.observable(null);
     this.address = ko.observableArray([]);
     this.photos = ko.observableArray([]);
+    /*
+        Adding a nominal rate limit to the photos array lets us load all photos
+        at once in a for loop without causing the infowindow to reload with
+        each photo.
+    */
     this.photos.extend({rateLimit: 50});
 
     /*
@@ -141,7 +146,7 @@ $(function() {
 
     // TODO: sort the list alphabetically
     // TODO: refactor for performance (don't push all values in one by because)
-    //       that will force redraws each time.
+    //       that will force redraws each time. or maybe rate limit.
     self.stadiums = ko.observableArray([]);
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
@@ -269,8 +274,6 @@ $(function() {
       Checks if stadium data has already been downloaded from API sources.
       If not, download asynchronously and update when complete.
   */
-  // TODO probably need to use a function better than just match since
-  // target field is coming back as the bar there instead of the stadium
   var getFoursquareData = function(stad) {
     if (stad.foursquareid() === null) {
       console.log("getting 4sq data");
@@ -423,20 +426,28 @@ $(function() {
   };
 
 
-  function buildFoursquareSearchQuery(lat, long, name) {
+  function buildFoursquareSearchQuery(lat, long, name, numresults) {
+    var limit = numresults || 5;
     var query = "https://api.foursquare.com/v2/venues/search" +
       "?client_id=HPTKFD3QU12Y0FPPQ0OVTZ51RFAYJ5L4104MNJJL0CW2HEEQ" +
       "&client_secret=YLBK5PYZW4FZNK0QIQX5SCJOQS4TYYEHR2LZ2SHYGJLXJCLE" +
-      "&v=20130815&ll=" + lat + "," + long + "&intent=match&query=";
-    query += encodeURIComponent(name);
+      "&v=20130815&ll=" + lat + "," + long + "&intent=checkin&radius=500" +
+      "&limit=" + limit;
+    // stadium: 4bf58dd8d48988d184941735
+    // college stadium: 4bf58dd8d48988d1b4941735
+    query += "&categoryId=4bf58dd8d48988d184941735,4bf58dd8d48988d1b4941735";
+    query += "&query=" + encodeURIComponent(name);
     return query;
   }
 
-  function buildFoursquarePhotosQuery(id) {
+
+  function buildFoursquarePhotosQuery(id, numphotos) {
+    var limit = numphotos || 5;
     var query = "https://api.foursquare.com/v2/venues/" + id + "/photos?" +
       "client_id=HPTKFD3QU12Y0FPPQ0OVTZ51RFAYJ5L4104MNJJL0CW2HEEQ" +
       "&client_secret=YLBK5PYZW4FZNK0QIQX5SCJOQS4TYYEHR2LZ2SHYGJLXJCLE" +
       "&v=20130815";
+    query += "&limit=" + limit;
     return query;
   }
 
