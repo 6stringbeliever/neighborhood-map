@@ -6,6 +6,10 @@ Project 5 for the Udacity front-end nanodegree.
 
 ## Installation
 
+1. Download the repo.
+1. The optimized content is in the dist directory. The source code is in the dev directory.
+1. Run the default Gulp task to re-minify everything if you make changes to the dev code.
+
 ## Sites/Tools Used
 
 ### Tools
@@ -19,6 +23,8 @@ Project 5 for the Udacity front-end nanodegree.
 ### APIs
 
 * [Google Maps](https://developers.google.com/maps/)
+* [Foursquare](https://developer.foursquare.com/)
+* [NYTimes](http://developer.nytimes.com/docs)
 
 ### References
 

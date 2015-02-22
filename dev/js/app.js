@@ -1,5 +1,8 @@
 $(function() {
 
+  /*
+      Stadium object. Holds all the data for a single stadium.
+  */
   var Stadium = function(data) {
     this.name = ko.observable(data.name);
     this.lat = ko.observable(data.lat);
@@ -70,8 +73,11 @@ $(function() {
       }
       return leagues;
     }, this);
-  };
+  }; // Stadium
 
+  /*
+      Filter object for each of league filters.
+  */
   var Filter = function(data) {
     this.league = ko.observable(data.league);
     this.display = ko.observable(data.display);
@@ -123,7 +129,7 @@ $(function() {
       'teams': [{ 'name': 'Columbus Crew',
                   'league': 'MLS' }]
     }
-  ];
+  ]; // stadiumData
 
   var ViewModel = function() {
     var self = this;
@@ -222,7 +228,7 @@ $(function() {
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
-  };
+  }; // ViewModel
 
   /*
     Returns true if the stadium passed in clears all the filters. First,
@@ -269,7 +275,6 @@ $(function() {
     $("." + classtoapply).removeClass(classtoapply);
     $(element).children().filter(':visible:last').addClass(classtoapply);
   };
-
 
   /*
       Checks if stadium data has already been downloaded from API sources.
@@ -426,7 +431,13 @@ $(function() {
     }
   };
 
-
+  /*
+      Returns a URL to a Foursquare query that is most likely to return
+      the appropriate stadium ID and data as the first result. Takes
+      the latitude, longitude, and name of the stadium object. Number of
+      results defaults to 5, or can be set in numresults. Preferring to
+      return a few results for now in case we need to further filter.
+  */
   function buildFoursquareSearchQuery(lat, long, name, numresults) {
     var limit = numresults || 5;
     var query = "https://api.foursquare.com/v2/venues/search" +
@@ -441,7 +452,10 @@ $(function() {
     return query;
   }
 
-
+  /*
+    Returns a URL to return a JSON list of photos for the specified
+    Foursquare ID. Default limit is 5, or specify in numphotos.
+  */
   function buildFoursquarePhotosQuery(id, numphotos) {
     var limit = numphotos || 5;
     var query = "https://api.foursquare.com/v2/venues/" + id + "/photos?" +
