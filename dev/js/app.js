@@ -19,17 +19,18 @@ $(function() {
     }
 
     /*
-       We'll get these items from Foursquare when the infowindow is displayed.
+       We'll get these items from Foursquare and the NY Times when the
+       infowindow is displayed. Adding a nominal rate limit to the photos
+       and articles arrays lets us load all photos at once in a for
+       loop without causing the infowindow to reload with each photo.
     */
     this.foursquareid = ko.observable(null);
     this.address = ko.observableArray([]);
     this.photos = ko.observableArray([]);
-    /*
-        Adding a nominal rate limit to the photos array lets us load all photos
-        at once in a for loop without causing the infowindow to reload with
-        each photo.
-    */
     this.photos.extend({rateLimit: 50});
+
+    this.articles = ko.observableArray([]);
+    this.articles.extend({rateLimit: 50});
 
     /*
        Returns the location in a format that's useful for
@@ -128,6 +129,45 @@ $(function() {
       'lng': -82.991111,
       'teams': [{ 'name': 'Columbus Crew',
                   'league': 'MLS' }]
+    },
+    {
+      'name': 'MTS Center',
+      'lat': 49.892778,
+      'lng': -97.143611,
+      'teams': [{ 'name': 'Winnipeg Jets',
+                  'league': 'NHL' }]
+    },
+    {
+      'name': 'Pepsi Center',
+      'lat': 39.748611,
+      'lng': -105.0075,
+      'teams': [{ 'name': 'Colorado Avalanche',
+                  'league': 'NHL' },
+                { 'name': 'Denver Nuggets',
+                  'league': 'NBA'}]
+    },
+    {
+      'name': 'Scottrade Center',
+      'lat': 38.626667,
+      'lng': -90.2025,
+      'teams': [{ 'name': 'St. Louis Blues',
+                  'league': 'NHL' }]
+    },
+    {
+      'name': 'United Center',
+      'lat': 41.880556,
+      'lng': -87.674167,
+      'teams': [{ 'name': 'Chicago Blackhawks',
+                  'league': 'NHL' },
+                { 'name': 'Chicago Bulls',
+                  'league': 'NBA'}]
+    },
+    {
+      'name': 'Xcel Energy Center',
+      'lat': 44.944722,
+      'lng': -93.101111,
+      'teams': [{ 'name': 'Minnesota Wild',
+                  'league': 'NHL' }]
     }
   ]; // stadiumData
 
@@ -146,8 +186,9 @@ $(function() {
                                 timeout: 400,
                                 method: "notifyWhenChangesStop" } });
 
-
+    /* List of leagues to filter */
     self.filters = ko.observableArray([]);
+    /* Tracks whether to show message that search results returned no data. */
     self.emptysearch = ko.observable(false);
 
     // TODO: sort the list alphabetically
@@ -166,6 +207,9 @@ $(function() {
     }
 
     self.selectedStadium = ko.observable(null);
+    self.selectedStadium.extend({ rateLimit: {
+                              timeout: 10,
+                              method: "notifyWhenChangesStop"} });
 
     self.showMarker = function(stadium) {
       self.selectedStadium(stadium);
@@ -276,32 +320,42 @@ $(function() {
     $(element).children().filter(':visible:last').addClass(classtoapply);
   };
 
+
   /*
-      Checks if stadium data has already been downloaded from API sources.
-      If not, download asynchronously and update when complete.
+      Starts and manages the process for getting stadium data from
+      remote sources.
   */
-  var getFoursquareData = function(stad) {
+  var getRemoteData = function(stad) {
     if (stad.foursquareid() === null) {
-      console.log("getting 4sq data");
-      //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
-      $.ajax({
-        dataType: "json",
-        url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
-        success: function(data) {
-          var addr, venue;
-          venue = data.response.venues[0];
-          stad.foursquareid(venue.id);
-          for (addr in venue.location.formattedAddress) {
-            stad.address.push(venue.location.formattedAddress[addr]);
-          }
-        },
-        error: function() {
-          console.log("Error getting foursquare data");
-        }
-      });
-    } else {
+      getFoursquareData(stad);
+    } else if (stad.photos().length === 0) {
       getFoursquarePhotos(stad);
     }
+    if (stad.articles().length === 0) {
+      getNYTimesData(stad);
+    }
+  };
+
+  /*
+      Download Foursquare data asynchronously.
+  */
+  var getFoursquareData = function(stad) {
+    //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
+    $.ajax({
+      dataType: "json",
+      url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
+      success: function(data) {
+        var addr, venue;
+        venue = data.response.venues[0];
+        stad.foursquareid(venue.id);
+        for (addr in venue.location.formattedAddress) {
+          stad.address.push(venue.location.formattedAddress[addr]);
+        }
+      },
+      error: function() {
+        console.log("Error getting foursquare data");
+      }
+    });
   };
 
 
@@ -310,27 +364,51 @@ $(function() {
       download asynchronously and update when complete.
   */
   var getFoursquarePhotos = function(stad) {
-    if (stad.foursquareid() !== null && stad.photos().length === 0) {
-      console.log("getting photos");
-      //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
-      $.ajax({
-        dataType: "json",
-        url: buildFoursquarePhotosQuery(stad.foursquareid()),
-        success: function(data) {
-          console.log("got photos");
-          var photos = data.response.photos.items;
-          for (var photo in photos) {
-            var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
-            stad.photos.push(ko.observable(photourl));
-          }
-        },
-        error: function(jqhxr, status, error) {
-          console.log("don't got photos");
+    console.log("getting photos");
+    //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
+    $.ajax({
+      dataType: "json",
+      url: buildFoursquarePhotosQuery(stad.foursquareid()),
+      success: function(data) {
+        console.log("got photos");
+        var photos = data.response.photos.items;
+        for (var photo in photos) {
+          var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
+          stad.photos.push(ko.observable(photourl));
         }
-      });
-    } else {
-      console.log("already have photos");
-    }
+      },
+      error: function(jqhxr, status, error) {
+        console.log("Error getting photos");
+      }
+    });
+  };
+
+  /*
+      Get NY Times articles for the stadium.
+  */
+  // TODO: Fix extra data bug in this one, too.
+  // TODO: Notify for reload when done.
+  var getNYTimesData = function(stad) {
+    $.ajax({
+      dataType: "json",
+      url: buildNYTimesArticleURL(stad.name()),
+      success: function(data) {
+        var docs;
+        if (data.status === 'OK') {
+          console.log("Got NY Times articles");
+          docs = data.response.docs;
+          for (var doc in docs) {
+            stad.articles().push({'url': docs[doc].web_url,
+                                  'headline': docs[doc].headline.main});
+          }
+        } else {
+          console.log("Error getting NY Times articles");
+        }
+      },
+      error: function(jqhxr, status, error) {
+        console.log("Error getting NY Times articles");
+      }
+    });
   };
 
   ko.bindingHandlers.googlemap = {
@@ -346,7 +424,7 @@ $(function() {
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL,
-            position: google.maps.ControlPosition.RIGHT_BOTTOM
+            position: google.maps.ControlPosition.LEFT_BOTTOM
         },
       };
       var ctx = bindingContext.$data;
@@ -419,7 +497,7 @@ $(function() {
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
-        getFoursquareData(stadium);
+        getRemoteData(stadium);
       }
 
       function addDOMListener(infowindow) {
@@ -463,6 +541,18 @@ $(function() {
       "&client_secret=YLBK5PYZW4FZNK0QIQX5SCJOQS4TYYEHR2LZ2SHYGJLXJCLE" +
       "&v=20130815";
     query += "&limit=" + limit;
+    return query;
+  }
+
+  /*
+      Returns a URL to return a JSON list of articles from the NY Times
+      related to the passed in stadium data.
+  */
+  function buildNYTimesArticleURL(name) {
+    var query = "http://api.nytimes.com/svc/search/v2/articlesearch.json?" +
+      "&api-key=5970e8422dc755c43539b1a554bd3017:18:34329006";
+    var fq = 'news_desk:("Sports") AND body:("' + name + '")';
+    query += "&fq=" + encodeURIComponent(fq);
     return query;
   }
 
