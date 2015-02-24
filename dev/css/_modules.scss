@@ -18,6 +18,8 @@
 .stad-list-ul {
   margin: 0;
   padding: 0;
+  max-height: 500px;
+  overflow: scroll;
   p {
     font-size: 14px;
     line-height: 14px;
