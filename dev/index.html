@@ -41,17 +41,17 @@
         <div data-bind="visible: !foursquareid()">
           Getting data.
         </div>
-        <div data-bind="visible: foursquareid">
+        <div class="info-address" data-bind="visible: foursquareid">
           <div data-bind="foreach: address">
-            <p class="stad-address" data-bind="text: $data"></p>
+            <p data-bind="text: $data"></p>
           </div>
         </div>
-        <div data-bind="visible: photos().length > 0">
+        <div class="info-photos" data-bind="visible: photos().length > 0">
           <div data-bind="foreach: photos">
-            <p class="stad-photo"><img data-bind="attr: {src: $data}" /></p>
+            <img data-bind="attr: {src: $data}" />
           </div>
         </div>
-        <div data-bind="visible: articles().length > 0">
+        <div class="info-articles" data-bind="visible: articles().length > 0">
           <h2>Recent NY Times Articles</h2>
           <ul data-bind="foreach: articles">
             <li><a data-bind="text: headline, attr: {href: url}"></a></li>

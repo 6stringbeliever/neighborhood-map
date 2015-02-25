@@ -75,3 +75,26 @@
   color: $secondary-body-color;
   margin: 4px 0;
 }
+
+.info-address {
+  margin: 8px 0;
+  p {
+    margin: 4px 0;
+  }
+}
+
+.info-photos {
+  img {
+    max-width: 100%;
+  }
+}
+
+.info-articles {
+  ul {
+    padding: 0;
+    li {
+      margin: 4px 0px;
+      list-style: none;
+    }
+  }
+}
