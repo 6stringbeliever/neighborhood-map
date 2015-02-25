@@ -25,7 +25,9 @@ $(function() {
        loop without causing the infowindow to reload with each photo.
     */
     this.foursquareid = ko.observable(null);
+    this.foursquareid.extend({rateLimit: 50});
     this.address = ko.observableArray([]);
+    this.address.extend({rateLimit: 50});
     this.photos = ko.observableArray([]);
     this.photos.extend({rateLimit: 50});
 
@@ -272,6 +274,9 @@ $(function() {
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
+
+    // DEBUG
+    window.staddebug = self.selectedStadium;
   }; // ViewModel
 
   /*
@@ -345,12 +350,13 @@ $(function() {
       dataType: "json",
       url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
       success: function(data) {
+        console.log("Got 4sq data");
         var addr, venue;
         venue = data.response.venues[0];
-        stad.foursquareid(venue.id);
         for (addr in venue.location.formattedAddress) {
           stad.address.push(venue.location.formattedAddress[addr]);
         }
+        stad.foursquareid(venue.id);
       },
       error: function() {
         console.log("Error getting foursquare data");
@@ -374,7 +380,7 @@ $(function() {
         var photos = data.response.photos.items;
         for (var photo in photos) {
           var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
-          stad.photos.push(ko.observable(photourl));
+          stad.photos.push(photourl);
         }
       },
       error: function(jqhxr, status, error) {
@@ -395,12 +401,12 @@ $(function() {
       success: function(data) {
         var docs;
         if (data.status === 'OK') {
-          console.log("Got NY Times articles");
           docs = data.response.docs;
           for (var doc in docs) {
-            stad.articles().push({'url': docs[doc].web_url,
+            stad.articles.push({'url': docs[doc].web_url,
                                   'headline': docs[doc].headline.main});
           }
+          console.log("Got NY Times articles");
         } else {
           console.log("Error getting NY Times articles");
         }
