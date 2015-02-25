@@ -86,6 +86,125 @@ $(function() {
     this.display = ko.observable(data.display);
   };
 
+  /*
+      Keep track of whether an asynchronous call to one of our data sources is
+      in progress. Don't make a new call to the source until the first one
+      finishes. Prevents a race condition where one call finishes and causes
+      update to infowindow before another call finishes, leaving two calls
+      to articles, data, etc, causing duplicate data.
+  */
+  // TODO: This should probably actually track by stadium; on slow connection
+  // you could select a stadium then immediately select another stadium and
+  // not get any data b/c the first stadium wasn't finished DLing data.
+  var remoteDataHelper = {
+    self: this,
+    gettingNYTimesData: false,
+    gettingFoursquareData: false,
+    gettingFoursquarePhotos: false,
+    /*
+        Starts and manages the process for getting stadium data from
+        remote sources.
+    */
+    getRemoteData: function(stad) {
+      if (stad.foursquareid() === null) {
+        this.getFoursquareData(stad);
+      } else if (stad.photos().length === 0) {
+        this.getFoursquarePhotos(stad);
+      }
+      if (stad.articles().length === 0) {
+        this.getNYTimesData(stad);
+      }
+    },
+    /*
+        Download Foursquare data asynchronously.
+    */
+    getFoursquareData: function(stad) {
+      //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
+      if (!self.gettingFoursquareData) {
+        this.gettingFoursquareData = true;
+        $.ajax({
+          dataType: "json",
+          url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
+          success: function(data) {
+            console.log("Got 4sq data");
+            var addr, venue;
+            venue = data.response.venues[0];
+            for (addr in venue.location.formattedAddress) {
+              stad.address.push(venue.location.formattedAddress[addr]);
+            }
+            stad.foursquareid(venue.id);
+            self.gettingFoursquareData = false;
+          },
+          error: function() {
+            console.log("Error getting foursquare data");
+            self.gettingFoursquareData = false;
+          }
+        });
+      } else {
+        console.log("poo");
+      }
+    },
+    /*
+        Checks if photos have already been downloaded from Foursquare. If not,
+        download asynchronously and update when complete.
+    */
+    getFoursquarePhotos: function(stad) {
+      if (!self.gettingFoursquarePhotos) {
+        console.log("getting photos");
+        //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
+        this.gettingFoursquarePhotos = true;
+        $.ajax({
+          dataType: "json",
+          url: buildFoursquarePhotosQuery(stad.foursquareid()),
+          success: function(data) {
+            console.log("got photos");
+            var photos = data.response.photos.items;
+            for (var photo in photos) {
+              var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
+              stad.photos.push(photourl);
+            }
+            self.gettingFoursquarePhotos = false;
+          },
+          error: function(jqhxr, status, error) {
+            console.log("Error getting photos");
+            self.gettingFoursquarePhotos = false;
+          }
+        });
+      }
+    },
+    /*
+        Get NY Times articles for the stadium.
+    */
+    getNYTimesData: function(stad) {
+      if (!self.gettingNYTimesData) {
+        self.gettingNYTimesData = true;
+        $.ajax({
+          dataType: "json",
+          url: buildNYTimesArticleURL(stad.name()),
+          success: function(data) {
+            var docs;
+            if (data.status === 'OK') {
+              docs = data.response.docs;
+              for (var doc in docs) {
+                stad.articles.push({'url': docs[doc].web_url,
+                                      'headline': docs[doc].headline.main});
+              }
+              console.log("Got NY Times articles");
+            } else {
+              console.log("Error getting NY Times articles");
+            }
+            self.gettingNYTimesData = false;
+          },
+          error: function(jqhxr, status, error) {
+            console.log("Error getting NY Times articles");
+            self.gettingNYTimesData = false;
+          }
+        });
+      }
+    }
+  }; // Remote data helper
+
+
   var ViewModel = function() {
     var self = this;
     var league;
@@ -126,6 +245,8 @@ $(function() {
                               timeout: 10,
                               method: "notifyWhenChangesStop"} });
 
+    // TODO: Either code for resetting remote helper goes here or this
+    // should be deleted.
     self.showMarker = function(stadium) {
       self.selectedStadium(stadium);
     };
@@ -187,9 +308,6 @@ $(function() {
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
-
-    // DEBUG
-    window.staddebug = self.selectedStadium;
   }; // ViewModel
 
   /*
@@ -236,98 +354,6 @@ $(function() {
   var setLastChildToClass = function(element, classtoapply) {
     $("." + classtoapply).removeClass(classtoapply);
     $(element).children().filter(':visible:last').addClass(classtoapply);
-  };
-
-
-  /*
-      Starts and manages the process for getting stadium data from
-      remote sources.
-  */
-  var getRemoteData = function(stad) {
-    if (stad.foursquareid() === null) {
-      getFoursquareData(stad);
-    } else if (stad.photos().length === 0) {
-      getFoursquarePhotos(stad);
-    }
-    if (stad.articles().length === 0) {
-      getNYTimesData(stad);
-    }
-  };
-
-  /*
-      Download Foursquare data asynchronously.
-  */
-  var getFoursquareData = function(stad) {
-    //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
-    $.ajax({
-      dataType: "json",
-      url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
-      success: function(data) {
-        console.log("Got 4sq data");
-        var addr, venue;
-        venue = data.response.venues[0];
-        for (addr in venue.location.formattedAddress) {
-          stad.address.push(venue.location.formattedAddress[addr]);
-        }
-        stad.foursquareid(venue.id);
-      },
-      error: function() {
-        console.log("Error getting foursquare data");
-      }
-    });
-  };
-
-
-  /*
-      Checks if photos have already been downloaded from Foursquare. If not,
-      download asynchronously and update when complete.
-  */
-  var getFoursquarePhotos = function(stad) {
-    console.log("getting photos");
-    //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
-    $.ajax({
-      dataType: "json",
-      url: buildFoursquarePhotosQuery(stad.foursquareid()),
-      success: function(data) {
-        console.log("got photos");
-        var photos = data.response.photos.items;
-        for (var photo in photos) {
-          var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
-          stad.photos.push(photourl);
-        }
-      },
-      error: function(jqhxr, status, error) {
-        console.log("Error getting photos");
-      }
-    });
-  };
-
-  /*
-      Get NY Times articles for the stadium.
-  */
-  // TODO: Fix extra data bug in this one, too.
-  // TODO: Notify for reload when done.
-  var getNYTimesData = function(stad) {
-    $.ajax({
-      dataType: "json",
-      url: buildNYTimesArticleURL(stad.name()),
-      success: function(data) {
-        var docs;
-        if (data.status === 'OK') {
-          docs = data.response.docs;
-          for (var doc in docs) {
-            stad.articles.push({'url': docs[doc].web_url,
-                                  'headline': docs[doc].headline.main});
-          }
-          console.log("Got NY Times articles");
-        } else {
-          console.log("Error getting NY Times articles");
-        }
-      },
-      error: function(jqhxr, status, error) {
-        console.log("Error getting NY Times articles");
-      }
-    });
   };
 
   ko.bindingHandlers.googlemap = {
@@ -416,7 +442,7 @@ $(function() {
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
-        getRemoteData(stadium);
+        remoteDataHelper.getRemoteData(stadium);
       }
 
       function addDOMListener(infowindow) {
