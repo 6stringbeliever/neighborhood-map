@@ -273,5 +273,180 @@ var stadiumData = [
     'lng': -117.1566,
     'teams': [{ 'name': 'San Diego Padres',
                 'league': 'MLB' }]
+  },
+  {
+    'name': 'Gila River Arena',
+    'lat': 33.531944,
+    'lng': -112.261111,
+    'teams': [{ 'name': 'Arizona Coyotes',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Honda Center',
+    'lat': 33.807778,
+    'lng': -117.876667,
+    'teams': [{ 'name': 'Anaheim Ducks',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Rexall Place',
+    'lat': 53.571389,
+    'lng': -113.456111,
+    'teams': [{ 'name': 'Edmonton Oilers',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Rogers Arena',
+    'lat': 49.277778,
+    'lng': -123.108889,
+    'teams': [{ 'name': 'Vancouver Canucks',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'SAP Center at San Jose',
+    'lat': 37.332778,
+    'lng': -121.901111,
+    'teams': [{ 'name': 'San Jose Sharks',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Scotiabank Saddledome',
+    'lat': 51.0375,
+    'lng': -114.051944,
+    'teams': [{ 'name': 'Calgary Flames',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Staples Center',
+    'lat': 34.043056,
+    'lng': -118.267222,
+    'teams': [{ 'name': 'Los Angeles Kings',
+                'league': 'NHL' },
+              { 'name': 'Los Angeles Clippers',
+                'league': 'NBA' },
+              { 'name': 'Los Angeles Lakers',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Air Canada Center',
+    'lat': 43.643333,
+    'lng': -79.379167,
+    'teams': [{ 'name': 'Toronto Maple Leafs',
+                'league': 'NHL' },
+              { 'name': 'Toronto Raptors',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Amalie Arena',
+    'lat': 27.942778,
+    'lng': -82.451944,
+    'teams': [{ 'name': 'Tampa Bay Lightning',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'BB&T Center',
+    'lat': 26.158333,
+    'lng': -80.325556,
+    'teams': [{ 'name': 'Florida Panthers',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Bell Center',
+    'lat': 45.496111,
+    'lng': -73.569444,
+    'teams': [{ 'name': 'Montreal Canadiens',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Canadian Tire Centre',
+    'lat': 45.296944,
+    'lng': -75.927222,
+    'teams': [{ 'name': 'Ottawa Senators',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'First Niagra Center',
+    'lat': 42.875,
+    'lng': -78.876389,
+    'teams': [{ 'name': 'Buffalo Sabres',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Joe Louis Arena',
+    'lat': 42.325278,
+    'lng': -83.051389,
+    'teams': [{ 'name': 'Detroit Red Wings',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'TD Garden',
+    'lat': 42.366303,
+    'lng': -71.062228,
+    'teams': [{ 'name': 'Boston Bruins',
+                'league': 'NHL' },
+              { 'name': 'Boston Celtics',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Consol Energy Center',
+    'lat': 40.439444,
+    'lng': -79.989167,
+    'teams': [{ 'name': 'Pittsburgh Penguins',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Madison Square Garden',
+    'lat': 40.750556,
+    'lng': -73.993611,
+    'teams': [{ 'name': 'New York Rangers',
+                'league': 'NHL' },
+              { 'name': 'New York Knicks',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Nassau Veterans Memorial Coliseum',
+    'lat': 40.722778,
+    'lng': -73.590556,
+    'teams': [{ 'name': 'New York Islanders',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Nationwide Arena',
+    'lat': 39.969283,
+    'lng': -83.006111,
+    'teams': [{ 'name': 'Columbus Blue Jackets',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'PNC Arena',
+    'lat': 35.803333,
+    'lng': -78.721944,
+    'teams': [{ 'name': 'Carolina Hurricanes',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Prudential Center',
+    'lat': 40.733611,
+    'lng': -74.171111,
+    'teams': [{ 'name': 'New Jersey Devils',
+                'league': 'NHL' }]
+  },
+  {
+    'name': 'Verizon Center',
+    'lat': 38.898056,
+    'lng': -77.020833,
+    'teams': [{ 'name': 'Washington Capitals',
+                'league': 'NHL' },
+              { 'name': 'Washington Wizards',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Wells Fargo Center',
+    'lat': 39.901111,
+    'lng': -75.171944,
+    'teams': [{ 'name': 'Philadelphia Flyers',
+                'league': 'NHL' },
+              { 'name': 'Philadelphia 76ers',
+                'league': 'NBA' }]
   }
 ]; // stadiumData
