@@ -93,9 +93,6 @@ $(function() {
       update to infowindow before another call finishes, leaving two calls
       to articles, data, etc, causing duplicate data.
   */
-  // TODO: This should probably actually track by stadium; on slow connection
-  // you could select a stadium then immediately select another stadium and
-  // not get any data b/c the first stadium wasn't finished DLing data.
   var remoteDataHelper = {
     self: this,
     gettingNYTimesData: false,
@@ -119,9 +116,8 @@ $(function() {
         Download Foursquare data asynchronously.
     */
     getFoursquareData: function(stad) {
-      //console.log(buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()));
       if (!self.gettingFoursquareData) {
-        this.gettingFoursquareData = true;
+        self.gettingFoursquareData = true;
         $.ajax({
           dataType: "json",
           url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
@@ -140,8 +136,6 @@ $(function() {
             self.gettingFoursquareData = false;
           }
         });
-      } else {
-        console.log("poo");
       }
     },
     /*
@@ -151,8 +145,7 @@ $(function() {
     getFoursquarePhotos: function(stad) {
       if (!self.gettingFoursquarePhotos) {
         console.log("getting photos");
-        //console.log(buildFoursquarePhotosQuery(stad.foursquareid()));
-        this.gettingFoursquarePhotos = true;
+        self.gettingFoursquarePhotos = true;
         $.ajax({
           dataType: "json",
           url: buildFoursquarePhotosQuery(stad.foursquareid()),
@@ -186,8 +179,10 @@ $(function() {
             if (data.status === 'OK') {
               docs = data.response.docs;
               for (var doc in docs) {
-                stad.articles.push({'url': docs[doc].web_url,
-                                      'headline': docs[doc].headline.main});
+                stad.articles.push({
+                  'url': docs[doc].web_url,
+                  'headline': decodeHtmlEntity(docs[doc].headline.main)
+                });
               }
               console.log("Got NY Times articles");
             } else {
@@ -201,6 +196,11 @@ $(function() {
           }
         });
       }
+    },
+    reset: function() {
+      self.gettingNYTimesData = false;
+      self.gettingFoursquareData = false;
+      self.gettingFoursquarePhotos = false;
     }
   }; // Remote data helper
 
@@ -225,7 +225,6 @@ $(function() {
     /* Tracks whether to show message that search results returned no data. */
     self.emptysearch = ko.observable(false);
 
-    // TODO: sort the list alphabetically
     self.stadiums = ko.observableArray([]);
     self.stadiums.extend({ rateLimit: {
                               timeout: 10,
@@ -245,9 +244,12 @@ $(function() {
                               timeout: 10,
                               method: "notifyWhenChangesStop"} });
 
-    // TODO: Either code for resetting remote helper goes here or this
-    // should be deleted.
+    /*
+        Sets the stadium to show a marker for and resets the remote data
+        trackers since we're getting data for a different stadium.
+    */
     self.showMarker = function(stadium) {
+      remoteDataHelper.reset();
       self.selectedStadium(stadium);
     };
 
@@ -279,7 +281,7 @@ $(function() {
       */
       if (self.selectedStadium() !== null &&
           !stadiumClearsFilters(self.selectedStadium(), searchterms, visibleleagues)) {
-        self.selectedStadium(null);
+        self.showMarker(null);
       }
 
       /* Loop through all the stadiums. Hide the stadium if it doesn't match
@@ -411,7 +413,7 @@ $(function() {
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          bindingContext.selectedStadium(data);
+          bindingContext.showMarker(data);
         });
       }
     }
@@ -499,6 +501,16 @@ $(function() {
     var fq = 'news_desk:("Sports") AND body:("' + name + '")';
     query += "&fq=" + encodeURIComponent(fq);
     return query;
+  }
+
+  /*
+      Decodes the HTML entities in the passed in string.
+      Src: https://gist.github.com/CatTail/4174511
+  */
+  function decodeHtmlEntity(str) {
+    return str.replace(/&#(\d+);/g, function(match, dec) {
+      return String.fromCharCode(dec);
+    });
   }
 
   ko.applyBindings(new ViewModel());
