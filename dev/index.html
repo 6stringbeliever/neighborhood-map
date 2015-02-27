@@ -23,7 +23,7 @@
         </ul>
         <div class="stad-list">
           <p class="stad-list-empty" data-bind="visible: emptysearch">No matching stadiums found.</p>
-          <ul data-bind="foreach: stadiums, lastitem: { stadiums: stadiums, class: 'stad-list-last' }" class="stad-list-ul">
+          <ul data-bind="foreach: stadiums" class="stad-list-ul">
             <li data-bind="visible: visible, click: $parent.showMarker">
               <p data-bind="text: name" class="stad-list-name"></p>
               <div data-bind="foreach: teams">
