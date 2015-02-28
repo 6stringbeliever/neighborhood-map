@@ -448,5 +448,145 @@ var stadiumData = [
                 'league': 'NHL' },
               { 'name': 'Philadelphia 76ers',
                 'league': 'NBA' }]
+  },
+  {
+    'name': 'Philips Arena',
+    'lat': 33.757222,
+    'lng': -84.396389,
+    'teams': [{ 'name': 'Atlanta Hawks',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Barclays Center',
+    'lat': 40.682661,
+    'lng': -73.975225,
+    'teams': [{ 'name': 'Brooklyn Nets',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Bankers Life Fieldhouse',
+    'lat': 39.763889,
+    'lng': -86.155556,
+    'teams': [{ 'name': 'Indiana Pacers',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'BMO Harris Bradley Center',
+    'lat': 43.043611,
+    'lng': -87.916944,
+    'teams': [{ 'name': 'Milwaukee Bucks',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'The Palace of Auburn Hills',
+    'lat': 42.696944,
+    'lng': -83.245556,
+    'teams': [{ 'name': 'Detroit Pistons',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Quicken Loans Arena',
+    'lat': 41.496389,
+    'lng': -81.688056,
+    'teams': [{ 'name': 'Cleveland Cavaliers',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'American Airlines Arena',
+    'lat': 25.781389,
+    'lng': -80.188056,
+    'teams': [{ 'name': 'Miami Heat',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Amway Center',
+    'lat': 28.539167,
+    'lng': -81.383611,
+    'teams': [{ 'name': 'Orlando Magic',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Time Warner Cable Arena',
+    'lat': 35.225,
+    'lng': -80.839167,
+    'teams': [{ 'name': 'Charlotte Hornets',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Chesapeake Energy Arena',
+    'lat': 35.463333,
+    'lng': -97.515,
+    'teams': [{ 'name': 'Oklahoma City Thunder',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'EnergySolutions Arena',
+    'lat': 40.768333,
+    'lng': -111.901111,
+    'teams': [{ 'name': 'Utah Jazz',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Moda Center',
+    'lat': 45.531667,
+    'lng': -122.666667,
+    'teams': [{ 'name': 'Portland Trail Blazers',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Target Center',
+    'lat': 44.979444,
+    'lng': -93.276111,
+    'teams': [{ 'name': 'Minnesota Timberwolves',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Oracle Arena',
+    'lat': 37.750278,
+    'lng': -122.203056,
+    'teams': [{ 'name': 'Golden State Warriors',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Sleep Train Arena',
+    'lat': 38.649167,
+    'lng': -121.518056,
+    'teams': [{ 'name': 'Sacramento Kings',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Talking Stick Resort Arena',
+    'lat': 33.445833,
+    'lng': -112.071389,
+    'teams': [{ 'name': 'Phoenix Suns',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'AT&T Center',
+    'lat': 29.426944,
+    'lng': -98.4375,
+    'teams': [{ 'name': 'San Antonio Spurs',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'FedExForum',
+    'lat': 35.138333,
+    'lng': -90.050556,
+    'teams': [{ 'name': 'Memphis Grizzlies',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Smoothie King Center',
+    'lat': 29.948889,
+    'lng': -90.081944,
+    'teams': [{ 'name': 'New Orleans Pelicans',
+                'league': 'NBA' }]
+  },
+  {
+    'name': 'Toyota Center',
+    'lat': 29.750833,
+    'lng': -95.362222,
+    'teams': [{ 'name': 'Houston Rockets',
+                'league': 'NBA' }]
   }
 ]; // stadiumData
