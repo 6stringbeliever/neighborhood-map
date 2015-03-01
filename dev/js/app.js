@@ -10,7 +10,6 @@ $(function() {
     /* Default visible to true unless it's set in the passed in data */
     this.visible = typeof data.visible === 'boolean' ?
                     ko.observable(data.visible) : ko.observable(true);
-
     this.teams = ko.observableArray([]);
 
     for (var i = 0; i < data.teams.length; i++) {
@@ -227,7 +226,7 @@ $(function() {
 
     self.stadiums = ko.observableArray([]);
     self.stadiums.extend({ rateLimit: {
-                              timeout: 10,
+                              timeout: 5,
                               method: "notifyWhenChangesStop"} });
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
@@ -247,6 +246,7 @@ $(function() {
     /*
         Sets the stadium to show a marker for and resets the remote data
         trackers since we're getting data for a different stadium.
+        Stadium list control li's are bound to this function on click.
     */
     self.showMarker = function(stadium) {
       remoteDataHelper.reset();
@@ -279,15 +279,15 @@ $(function() {
          filters. You have to do this now because you can't close an
          infowindow attached to a marker that's not attached to the map.
       */
+      // TODO: Why is this not clearing the window anymore?
       if (self.selectedStadium() !== null &&
           !stadiumClearsFilters(self.selectedStadium(), searchterms, visibleleagues)) {
-        self.showMarker(null);
+        self.selectedStadium(null);
+        console.log("Setting stadium to null");
       }
 
       /* Loop through all the stadiums. Hide the stadium if it doesn't match
-         the league filters. Then check each stadium's computed search
-         string against all the search terms we just computed. We only need
-         one match to show the stadium, so break as soon as we get a match. */
+         the league filters. */
       for (i = 0; i < self.stadiums().length; i++) {
         stad = self.stadiums()[i];
         visible = stadiumClearsFilters(stad, searchterms, visibleleagues);
@@ -296,9 +296,13 @@ $(function() {
           emptysearch = false;
         }
       }
+      /* Stadiums isn't dependent on visible since we call visible.peek()
+         in the map binding, so we have to call valueHasMutated on stadiums
+         here to get the mapt to redraw markers. */
+      self.stadiums.valueHasMutated();
       self.emptysearch(emptysearch);
       setLastChildToClass(".stad-list-ul", "stad-list-last");
-    };
+    }; // filterList
 
     /*
        Subscribe the search field and all league filters to the filter method
@@ -310,6 +314,9 @@ $(function() {
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
+
+    // DEBUG
+    window.stadiums = self.stadiums;
   }; // ViewModel
 
   /*
@@ -400,20 +407,26 @@ $(function() {
                       viewModel, bindingContext) {
       var value = valueAccessor;
       var ctx = bindingContext.$data;
-
+      console.log("Calling update on map");
       for (var i in value().stadiums()) {
         var stadium = value().stadiums()[i];
-        if (stadium.visible()) {
+        /* Call peek() on visible so we don't create a new dependency
+           that will cause this to be evaluated over and over. Massive
+           performance hit if we don't do this. */
+        if (stadium.visible.peek()) {
           stadium.marker().setMap(ctx.map);
           addClickListener(stadium.marker(), stadium, ctx);
         } else {
           stadium.marker().setMap(null);
+          console.log("Removing from map");
         }
       }
 
+
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          bindingContext.showMarker(data);
+          bindingContext.selectedStadium(data);
+          // TODO: reset remote data
         });
       }
     }
@@ -445,6 +458,8 @@ $(function() {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
         remoteDataHelper.getRemoteData(stadium);
+      } else {
+        console.log("Stadium is null");
       }
 
       function addDOMListener(infowindow) {
