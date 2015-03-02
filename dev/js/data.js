@@ -588,5 +588,217 @@ var stadiumData = [
     'lng': -95.362222,
     'teams': [{ 'name': 'Houston Rockets',
                 'league': 'NBA' }]
+  },
+  {
+    'name': 'University of Phoenix Stadium',
+    'lat': 33.5275,
+    'lng': -112.2625,
+    'teams': [{ 'name': 'Arizona Cardinals',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Levi\'s Stadium',
+    'lat': 37.403,
+    'lng': -121.97,
+    'teams': [{ 'name': 'San Francisco 49ers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Edward Jones Dome',
+    'lat': 38.632778,
+    'lng': -90.188611,
+    'teams': [{ 'name': 'St. Louis Rams',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'CenturyLink Field',
+    'lat': 47.5952,
+    'lng': -122.3316,
+    'teams': [{ 'name': 'St. Louis Rams',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Raymond James Stadium',
+    'lat': 27.975833,
+    'lng': -82.503333,
+    'teams': [{ 'name': 'Tampa Bay Buccaneers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Mercedes-Benz Superdome',
+    'lat': 29.950833,
+    'lng': -90.081111,
+    'teams': [{ 'name': 'New Orleans Saints',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Bank of America Stadium',
+    'lat': 35.225833,
+    'lng': -80.852778,
+    'teams': [{ 'name': 'Carolina Panthers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'TCF Bank Stadium',
+    'lat': 44.976,
+    'lng': -93.225,
+    'teams': [{ 'name': 'Minnesota Vikings',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Soldier Field',
+    'lat': 41.8625,
+    'lng': -87.616667,
+    'teams': [{ 'name': 'Chicago Bears',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Lambeau Field',
+    'lat': 44.501,
+    'lng': -88.062,
+    'teams': [{ 'name': 'Green Bay Packers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Ford Field',
+    'lat': 42.34,
+    'lng': -83.045556,
+    'teams': [{ 'name': 'Detroit Lions',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'MetLife Stadium',
+    'lat': 42.34,
+    'lng': -83.045556,
+    'teams': [{ 'name': 'New York Giants',
+                'league': 'NFL' },
+              { 'name': 'New York Jets',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Lincoln Financial Field',
+    'lat': 39.900833,
+    'lng': -75.1675,
+    'teams': [{ 'name': 'Philadelphia Eagles',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'FedExField',
+    'lat': 38.907778,
+    'lng': -76.864444,
+    'teams': [{ 'name': 'Washington NFL Team',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'AT&T Field',
+    'lat': 32.747778,
+    'lng': -97.092778,
+    'teams': [{ 'name': 'Dallas Cowboys',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Qualcomm Stadium',
+    'lat': 32.783056,
+    'lng': -117.119444,
+    'teams': [{ 'name': 'San Diego Chargers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Sports Authority Field at Mile High',
+    'lat': 39.743889,
+    'lng': -105.02,
+    'teams': [{ 'name': 'Denver Broncos',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Arrowhead Stadium',
+    'lat': 39.048889,
+    'lng': -94.483889,
+    'teams': [{ 'name': 'Kansas City Chiefs',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'NRG Stadium',
+    'lat': 29.684722,
+    'lng': -95.410833,
+    'teams': [{ 'name': 'Houston Texans',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Lucas Oil Stadium',
+    'lat': 39.760056,
+    'lng': -86.163806,
+    'teams': [{ 'name': 'Indianapolis Colts',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'LP Field',
+    'lat': 36.166389,
+    'lng': -86.771389,
+    'teams': [{ 'name': 'Tennessee Titans',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'EverBank Field',
+    'lat': 30.323889,
+    'lng': -81.6375,
+    'teams': [{ 'name': 'Jacksonville Jaguars',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Paul Brown Stadium',
+    'lat': 39.095444,
+    'lng': -84.516039,
+    'teams': [{ 'name': 'Cincinnati Bengals',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'M&T Bank Stadium',
+    'lat': 39.277881,
+    'lng': -76.622639,
+    'teams': [{ 'name': 'Baltimore Ravens',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Heinz Field',
+    'lat': 40.446667,
+    'lng': -80.015833,
+    'teams': [{ 'name': 'Pittsburgh Steelers',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'FirstEnergy Stadium',
+    'lat': 41.506111,
+    'lng': -81.699444,
+    'teams': [{ 'name': 'Cleveland Browns',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Sun Life Stadium',
+    'lat': 25.958056,
+    'lng': -80.238889,
+    'teams': [{ 'name': 'Miami Dolphins',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Ralph Wilson Stadium',
+    'lat': 42.774,
+    'lng': -78.787,
+    'teams': [{ 'name': 'Buffalo Bills',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Gillette Stadium',
+    'lat': 42.090944,
+    'lng': -71.264344,
+    'teams': [{ 'name': 'New England Patriots',
+                'league': 'NFL' }]
+  },
+  {
+    'name': 'Georgia Dome',
+    'lat': 33.7575,
+    'lng': -84.400833,
+    'teams': [{ 'name': 'Atlanta Falcons',
+                'league': 'NFL' }]
   }
 ]; // stadiumData

@@ -4,7 +4,8 @@ $(function() {
   // TODO: Responsive
   // TODO: Error handling when not getting data
   // TODO: Photos layout
-  
+  // TODO: Alphabetize stadium list
+
   /*
       Stadium object. Holds all the data for a single stadium.
   */
