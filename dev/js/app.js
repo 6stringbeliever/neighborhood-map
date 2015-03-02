@@ -1,5 +1,10 @@
 $(function() {
 
+  // TODO: Markers
+  // TODO: Responsive
+  // TODO: Error handling when not getting data
+  // TODO: Photos layout
+  
   /*
       Stadium object. Holds all the data for a single stadium.
   */
@@ -138,8 +143,7 @@ $(function() {
       }
     },
     /*
-        Checks if photos have already been downloaded from Foursquare. If not,
-        download asynchronously and update when complete.
+        Download photos asynchronously from 4sq and update when complete.
     */
     getFoursquarePhotos: function(stad) {
       if (!self.gettingFoursquarePhotos) {
@@ -226,7 +230,7 @@ $(function() {
 
     self.stadiums = ko.observableArray([]);
     self.stadiums.extend({ rateLimit: {
-                              timeout: 5,
+                              timeout: 20,
                               method: "notifyWhenChangesStop"} });
     for (var stadium in stadiumData) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
@@ -425,8 +429,7 @@ $(function() {
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          bindingContext.selectedStadium(data);
-          // TODO: reset remote data
+          bindingContext.showMarker(data);
         });
       }
     }
