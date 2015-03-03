@@ -102,9 +102,7 @@ var stadiumData = [
     'lat': 43.641389,
     'lng': -79.389167,
     'teams': [{ 'name': 'Toronto Blue Jays',
-                'league': 'MLB' },
-              { 'name': 'Toronto FC',
-                'league': 'MLS' }]
+                'league': 'MLB' }]
   },
   {
     'name': 'Tropicana Field',
@@ -118,7 +116,9 @@ var stadiumData = [
     'lat': 40.829167,
     'lng': -73.926389,
     'teams': [{ 'name': 'New York Yankees',
-                'league': 'MLB' }]
+                'league': 'MLB' },
+              { 'name': 'New York City FC',
+                'league': 'MLS'}]
   },
   {
     'name': 'Comerica Park',
@@ -615,7 +615,9 @@ var stadiumData = [
     'lat': 47.5952,
     'lng': -122.3316,
     'teams': [{ 'name': 'St. Louis Rams',
-                'league': 'NFL' }]
+                'league': 'NFL' },
+              { 'name': 'Seattle Sounders FC',
+                'league': 'MLS'}]
   },
   {
     'name': 'Raymond James Stadium',
@@ -800,5 +802,124 @@ var stadiumData = [
     'lng': -84.400833,
     'teams': [{ 'name': 'Atlanta Falcons',
                 'league': 'NFL' }]
+  },
+  {
+    'name': 'Toyota Stadium',
+    'lat': 33.154444,
+    'lng': -96.835278,
+    'teams': [{ 'name': 'FC Dallas',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Toyota Park',
+    'lat': 41.764722,
+    'lng': -87.806111,
+    'teams': [{ 'name': 'Chicago Fire',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'StubHub Center',
+    'lat': 33.864444,
+    'lng': -118.261111,
+    'teams': [{ 'name': 'Los Angeles Galaxy',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Sporting Park',
+    'lat': 39.1218,
+    'lng': -94.8237,
+    'teams': [{ 'name': 'Sporting Kansas City',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Saputo Stadium',
+    'lat': 45.563056,
+    'lng': -73.5525,
+    'teams': [{ 'name': 'Montreal Impact',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'RFK Stadium',
+    'lat': 38.889722,
+    'lng': -76.971667,
+    'teams': [{ 'name': 'D.C. United',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Rio Tinto Stadium',
+    'lat': 40.582923,
+    'lng': -111.893156,
+    'teams': [{ 'name': 'Real Salt Lake',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Red Bull Arena',
+    'lat': 40.736667,
+    'lng': -74.150278,
+    'teams': [{ 'name': 'New York Red Bulls',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Providence Park',
+    'lat': 45.521389,
+    'lng': -122.691667,
+    'teams': [{ 'name': 'Portland Timbers',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'PPL Park',
+    'lat': 39.832222,
+    'lng': -75.378889,
+    'teams': [{ 'name': 'Philadelphia Union',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Gillette Stadium',
+    'lat': 42.090944,
+    'lng': -71.264344,
+    'teams': [{ 'name': 'New England Revolution',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Dick\'s Sporting Goods Park',
+    'lat': 39.805556,
+    'lng': -104.891944,
+    'teams': [{ 'name': 'Colorado Rapid',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Orlando Citrus Bowl Stadium',
+    'lat': 28.539167,
+    'lng': -81.402778,
+    'teams': [{ 'name': 'Orlando City SC',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'BMO Field',
+    'lat': 43.632778,
+    'lng': -79.418611,
+    'teams': [{ 'name': 'Toronto FC',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'BC Place',
+    'lat': 49.276667,
+    'lng': -123.111944,
+    'teams': [{ 'name': 'Vancouver Whitecaps FC',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'BBVA Compass Stadium',
+    'lat': 29.7522,
+    'lng': -95.3524,
+    'teams': [{ 'name': 'Houston Dynamo',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Avaya Stadium',
+    'lat': 37.351389,
+    'lng': -121.925,
+    'teams': [{ 'name': 'San Jose Earthquakes',
+                'league': 'MLS' }]
   }
 ]; // stadiumData
