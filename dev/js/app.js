@@ -88,6 +88,11 @@ $(function() {
   var Filter = function(data) {
     this.league = ko.observable(data.league);
     this.display = ko.observable(data.display);
+    this.imageSrc = ko.computed(function() {
+      var directory = "img/"
+      var filename = this.league().toLowerCase() + ".png";
+      return directory + filename;
+    }, this);
   };
 
   /*

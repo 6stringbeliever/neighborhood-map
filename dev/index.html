@@ -19,7 +19,9 @@
       <div id="stadium-list" class="stad-list-control">
         <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/>
         <ul class="stad-list-filters" data-bind="foreach: filters">
-          <li data-bind="text: league, css: {'stad-filter-on': display, 'stad-filter-off': !display }, click: $parent.toggleFilter"></li>
+          <li data-bind="css: {'stad-filter-on': display, 'stad-filter-off': !display }, click: $parent.toggleFilter">
+            <img data-bind="attr: {src: imageSrc, alt: league}" />
+          </li>
         </ul>
         <div class="stad-list">
           <p class="stad-list-empty" data-bind="visible: emptysearch">No matching stadiums found.</p>
