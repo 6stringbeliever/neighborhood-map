@@ -555,7 +555,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Talking Stick Resort Arena',
+    'name': 'US Airways Center',
     'lat': 33.445833,
     'lng': -112.071389,
     'teams': [{ 'name': 'Phoenix Suns',
