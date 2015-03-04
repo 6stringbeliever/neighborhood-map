@@ -794,7 +794,9 @@ var stadiumData = [
     'lat': 42.090944,
     'lng': -71.264344,
     'teams': [{ 'name': 'New England Patriots',
-                'league': 'NFL' }]
+                'league': 'NFL' },
+              { 'name': 'New England Revolution',
+                'league': 'MLS' }]
   },
   {
     'name': 'Georgia Dome',
@@ -871,13 +873,6 @@ var stadiumData = [
     'lat': 39.832222,
     'lng': -75.378889,
     'teams': [{ 'name': 'Philadelphia Union',
-                'league': 'MLS' }]
-  },
-  {
-    'name': 'Gillette Stadium',
-    'lat': 42.090944,
-    'lng': -71.264344,
-    'teams': [{ 'name': 'New England Revolution',
                 'league': 'MLS' }]
   },
   {
