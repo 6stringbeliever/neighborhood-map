@@ -40,9 +40,6 @@
         <div data-bind="foreach: teams">
           <p class="info-teams"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>
         </div>
-        <div data-bind="visible: !foursquareid()">
-          Getting data.
-        </div>
         <div class="info-address" data-bind="visible: foursquareid">
           <div data-bind="foreach: address">
             <p data-bind="text: $data"></p>

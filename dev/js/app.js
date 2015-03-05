@@ -139,8 +139,10 @@ $(function() {
             console.log("Got 4sq data");
             var addr, venue;
             venue = data.response.venues[0];
-            for (addr in venue.location.formattedAddress) {
-              stad.address.push(venue.location.formattedAddress[addr]);
+            if (stad.address.length === 0) {
+              for (addr in venue.location.formattedAddress) {
+                stad.address.push(venue.location.formattedAddress[addr]);
+              }
             }
             stad.foursquareid(venue.id);
             self.gettingFoursquareData = false;
@@ -165,9 +167,11 @@ $(function() {
           success: function(data) {
             console.log("got photos");
             var photos = data.response.photos.items;
-            for (var photo in photos) {
-              var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
-              stad.photos.push(photourl);
+            if (stad.photos.length === 0) {
+              for (var photo in photos) {
+                var photourl = photos[photo].prefix + "cap300" + photos[photo].suffix;
+                stad.photos.push(photourl);
+              }
             }
             self.gettingFoursquarePhotos = false;
           },
@@ -189,7 +193,7 @@ $(function() {
           url: buildNYTimesArticleURL(stad.name()),
           success: function(data) {
             var docs;
-            if (data.status === 'OK') {
+            if (data.status === 'OK' && stad.articles.length === 0) {
               docs = data.response.docs;
               for (var doc in docs) {
                 stad.articles.push({
