@@ -692,7 +692,7 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'AT&T Field',
+    'name': 'AT&T Stadium',
     'lat': 32.747778,
     'lng': -97.092778,
     'teams': [{ 'name': 'Dallas Cowboys',
