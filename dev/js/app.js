@@ -89,8 +89,13 @@ $(function() {
     this.league = ko.observable(data.league);
     this.display = ko.observable(data.display);
     this.imageSrc = ko.computed(function() {
+      var filename;
       var directory = "img/";
-      var filename = this.league().toLowerCase() + ".png";
+      if (this.display()) {
+        filename = this.league().toLowerCase() + ".png";
+      } else {
+        filename = this.league().toLowerCase() + "-off.png";
+      }
       return directory + filename;
     }, this);
   };
