@@ -7,3 +7,9 @@
 .stad-filter-off {
   color: gray;
 }
+
+.stad-menu-offsmall {
+  @media screen and (max-width: 549px) {
+    display: none;
+  }
+}

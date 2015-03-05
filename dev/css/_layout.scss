@@ -1,4 +1,22 @@
 #info-window {
   width: 325px;
   height: 275px;
+  @media screen and (max-width: 749px) {
+    width: 250px;
+  }
+  @media screen and (max-width: 320px) {
+    width: 210px;
+  }
 }
+
+#stad-list-menu {
+  @media screen and (min-width: 550px) {
+    display: none;
+  }
+}
+
+// #stad-list-hideable {
+//   @media screen and (max-width: 549px) {
+//     display: none;
+//   }
+// }

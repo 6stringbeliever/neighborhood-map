@@ -17,22 +17,27 @@
     <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums }, infowindow: { stadium: selectedStadium }"></div>
     <div id ="controls">
       <div id="stadium-list" class="stad-list-control">
-        <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/>
-        <ul class="stad-list-filters" data-bind="foreach: filters">
-          <li data-bind="click: $parent.toggleFilter">
-            <img data-bind="attr: {src: imageSrc, alt: league}" />
-          </li>
-        </ul>
-        <div class="stad-list">
-          <p class="stad-list-empty" data-bind="visible: emptysearch">No matching stadiums found.</p>
-          <ul data-bind="foreach: stadiums" class="stad-list-ul">
-            <li data-bind="visible: visible, click: $parent.showMarker">
-              <p data-bind="text: name" class="stad-list-name"></p>
-              <div data-bind="foreach: teams">
-                <p class="stad-list-data"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>
-              </div>
+        <div id="stad-list-menu">
+          <button id="stad-list-menu-toggle">Search/Filters</button>
+        </div>
+        <div id="stad-list-hideable" class="stad-menu-offsmall">
+          <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/>
+          <ul class="stad-list-filters" data-bind="foreach: filters">
+            <li data-bind="click: $parent.toggleFilter">
+              <img data-bind="attr: {src: imageSrc, alt: league}" />
             </li>
           </ul>
+          <div class="stad-list">
+            <p class="stad-list-empty" data-bind="visible: emptysearch">No matching stadiums found.</p>
+            <ul data-bind="foreach: stadiums" class="stad-list-ul">
+              <li data-bind="visible: visible, click: $parent.showMarker">
+                <p data-bind="text: name" class="stad-list-name"></p>
+                <div data-bind="foreach: teams">
+                  <p class="stad-list-data"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div id="selected-stadium-info" data-bind="with: selectedStadium">

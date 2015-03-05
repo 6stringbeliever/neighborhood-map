@@ -284,6 +284,7 @@ $(function() {
         Stadium list control li's are bound to this function on click.
     */
     self.showMarker = function(stadium) {
+      $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
       remoteDataHelper.reset();
       self.selectedStadium(stadium);
     };
@@ -413,7 +414,7 @@ $(function() {
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL,
-            position: google.maps.ControlPosition.LEFT_BOTTOM
+            position: google.maps.ControlPosition.RIGHT_BOTTOM
         },
       };
       var ctx = bindingContext.$data;
@@ -431,6 +432,9 @@ $(function() {
         var list = $('#stadium-list').detach();
         ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
         list.appendTo('#stadium-list-control');
+        $('#stad-list-menu-toggle').click(function() {
+          $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
+        });
       });
     },
 
@@ -460,7 +464,8 @@ $(function() {
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          bindingContext.showMarker(data);
+          remoteDataHelper.reset();
+          bindingContext.selectedStadium(data);
         });
       }
     }
