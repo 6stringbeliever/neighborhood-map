@@ -284,9 +284,16 @@ $(function() {
         Stadium list control li's are bound to this function on click.
     */
     self.showMarker = function(stadium) {
-      $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
+      self.toggleMenuOpen();
       remoteDataHelper.reset();
       self.selectedStadium(stadium);
+    };
+
+    self.toggleMenuOpen = function() {
+      console.log("toggle");
+      $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down');
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up');
     };
 
     self.toggleFilter = function(filter) {
@@ -426,14 +433,15 @@ $(function() {
         them as map controls. This way we get all the goodness of map controls
         but don't have to worry about when to ko.applyBinding.
       */
-      google.maps.event.addListener(ctx.map, 'tilesloaded', function(e) {
+      google.maps.event.addListenerOnce(ctx.map, 'tilesloaded', function(e) {
+        console.log("adding event listener");
         var control = document.createElement('div');
         control.id = 'stadium-list-control';
         var list = $('#stadium-list').detach();
         ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
         list.appendTo('#stadium-list-control');
         $('#stad-list-menu-toggle').click(function() {
-          $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
+          ctx.toggleMenuOpen();
         });
       });
     },

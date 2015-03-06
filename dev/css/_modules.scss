@@ -8,6 +8,11 @@
   }
 }
 
+.stad-list-menu {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
 .stad-list {
   margin: 4px 0 0 0;
   padding: 4px 8px;
@@ -18,7 +23,6 @@
 .stad-list-ul {
   margin: 0;
   padding: 0;
-  max-height: 500px;
   overflow: scroll;
   p {
     font-size: 14px;
@@ -37,6 +41,18 @@
   }
   li:last-child, .stad-list-last {
     border-bottom: none;
+  }
+  @media screen and (max-height: 399px) {
+    max-height: 150px;
+  }
+  @media screen and (min-height: 401px) {
+    max-height: 300px;
+  }
+  @media screen and (min-height: 550px) {
+    max-height: 400px;
+  }
+  @media screen and (min-height: 700px) {
+    max-height: 500px;
   }
 }
 
