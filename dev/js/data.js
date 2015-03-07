@@ -670,8 +670,8 @@ var stadiumData = [
   },
   {
     'name': 'MetLife Stadium',
-    'lat': 42.34,
-    'lng': -83.045556,
+    'lat': 40.813611,
+    'lng': -74.074444,
     'teams': [{ 'name': 'New York Giants',
                 'league': 'NFL' },
               { 'name': 'New York Jets',
