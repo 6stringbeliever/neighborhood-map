@@ -418,6 +418,7 @@ $(function() {
         zoom: 4,
         center: { lat: 39.8282, lng: -98.5795 },
         disableDefaultUI: true,
+        scrollwheel: false,
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.SMALL,
