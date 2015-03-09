@@ -1,7 +1,6 @@
 $(function() {
 
   // TODO: Error handling when not getting data
-  // TODO: Photos layout
 
   /*
       Stadium object. Holds all the data for a single stadium.
@@ -308,6 +307,11 @@ $(function() {
       self.selectedStadium(stadium);
     };
 
+    /*
+        The button to show or hide the search, filters, and stadium list appears
+        based on screen size. This toggles these items when the button is
+        clicked.
+    */
     self.toggleMenuOpen = function() {
       console.log("toggle");
       $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
@@ -315,10 +319,18 @@ $(function() {
       $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up');
     };
 
+    /*
+        Toggles the stadium type filter when it's clicked on the map.
+    */
     self.toggleFilter = function(filter) {
       filter.display(!filter.display());
     };
 
+    /*
+        Processes the search and stadium type filters each time
+        they are updated and sets stadium to visible or not based on
+        if it matches the search and filters.
+    */
     self.filterList = function() {
       var stad;
       var visible;
@@ -375,9 +387,6 @@ $(function() {
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
-
-    // DEBUG
-    window.stadiums = self.stadiums;
   }; // ViewModel
 
   /*
