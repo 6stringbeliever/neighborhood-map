@@ -1,7 +1,5 @@
 $(function() {
 
-  // TODO: Markers
-  // TODO: Responsive
   // TODO: Error handling when not getting data
   // TODO: Photos layout
 
@@ -298,10 +296,15 @@ $(function() {
         Sets the stadium to show a marker for and resets the remote data
         trackers since we're getting data for a different stadium.
         Stadium list control li's are bound to this function on click.
+        Controls the bouncey animation on select.
     */
     self.showMarker = function(stadium) {
       self.toggleMenuOpen();
       remoteDataHelper.reset();
+      stadium.marker().setAnimation(google.maps.Animation.BOUNCE);
+      window.setTimeout(function() {
+        stadium.marker().setAnimation(null);
+      }, 2000);
       self.selectedStadium(stadium);
     };
 
@@ -338,7 +341,6 @@ $(function() {
          filters. You have to do this now because you can't close an
          infowindow attached to a marker that's not attached to the map.
       */
-      // TODO: Why is this not clearing the window anymore?
       if (self.selectedStadium() !== null &&
           !stadiumClearsFilters(self.selectedStadium(), searchterms, visibleleagues)) {
         self.selectedStadium(null);
@@ -490,7 +492,7 @@ $(function() {
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
           remoteDataHelper.reset();
-          bindingContext.selectedStadium(data);
+          bindingContext.showMarker(data);
         });
       }
     }
