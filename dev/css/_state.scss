@@ -1,13 +1,4 @@
-// Styling for the filter buttons, on or off
-// TODO: Sass these up
-.stad-filter-on {
-  color: blue;
-}
-
-.stad-filter-off {
-  color: gray;
-}
-
+// Styling for menu for smaller screens.
 .stad-menu-offsmall {
   @media screen and (max-width: 549px) {
     display: none;
