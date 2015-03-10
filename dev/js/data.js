@@ -156,7 +156,7 @@ var stadiumData = [
                 'league': 'MLB' }]
   },
   {
-    'name': 'Global Life Park in Arlington',
+    'name': 'Globe Life Park in Arlington',
     'lat': 32.751389,
     'lng': -97.082778,
     'teams': [{ 'name': 'Texas Rangers',
