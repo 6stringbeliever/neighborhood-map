@@ -4,6 +4,7 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
 var minifyInline = require('gulp-minify-inline');
+var del = require('del');
 
 // Lint JavaScript
 gulp.task('lint', function() {
@@ -58,6 +59,10 @@ gulp.task('movejs', function() {
   .pipe(gulp.dest('dist/js//'));
 });
 
+gulp.task('clean', function(cb) {
+  del(['dist/*'], cb);
+});
+
 // Move all lib files
 gulp.task('movelib', ['movelibcss', 'movelibjs']);
 
@@ -75,4 +80,11 @@ gulp.task('watch', function() {
 
   // Watch js files and lint and move output
   gulp.watch('dev/js/*.js', ['lint', 'movejs']);
+});
+
+// Prepare for actual dist, clean the directory, then build and minify
+// everything.
+gulp.task('build', ['clean'], function() {
+  gulp.start('moveimages', 'movelibcss', 'movelibjs', 'minifyhtml',
+              'sass', 'minifyjs');
 });
