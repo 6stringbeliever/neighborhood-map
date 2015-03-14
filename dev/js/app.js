@@ -1,6 +1,8 @@
 $(function() {
 
-  // TODO: Error handling when not getting data
+  // TODO: Styles on messages
+  // TODO: Error handling on google map itself
+  // TODO: Gulp test vs. build folder
 
   /*
       Stadium object. Holds all the data for a single stadium.
@@ -558,7 +560,6 @@ $(function() {
       var infowindow = ctx.infowindow;
       var stadium = valueAccessor().stadium();
       var messages = valueAccessor().messages();
-      console.log(messages);
       /*
           We don't need to do anything with these, just create the bindings
           with the children of the datastatus object so it will update the
@@ -642,5 +643,17 @@ $(function() {
     });
   }
 
-  ko.applyBindings(new ViewModel());
+  /*
+      Make sure the google maps api is loaded before applying bindings. Toss up
+      an error message if it's not since the app is not usable w/o google maps.
+  */
+  if (typeof google !== 'undefined') {
+    ko.applyBindings(new ViewModel());
+  } else {
+    console.log("Error loading Google Maps API");
+    $('.map-canvas').hide();
+    $('body').prepend('<div class="error-dialog"><p class="error-message">' +
+                      'There was an error loading Google Maps. Please check ' +
+                      'your internet connection or try again later.</p></div>');
+  }
 });

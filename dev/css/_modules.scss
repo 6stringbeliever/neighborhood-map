@@ -117,3 +117,20 @@
     }
   }
 }
+
+// Main page error dialog
+.error-dialog {
+  margin: 100px auto;
+  padding: 24px;
+  border: 1px solid $error-foreground;
+  background-color: $error-background;
+  width: 400px;
+  max-width: 80%;
+}
+
+.error-message {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: $error-foreground;
+}
