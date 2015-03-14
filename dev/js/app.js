@@ -1,7 +1,6 @@
 $(function() {
 
   // TODO: Styles on messages
-  // TODO: Error handling on google map itself
   // TODO: Gulp test vs. build folder
 
   /*
