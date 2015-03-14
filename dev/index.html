@@ -15,11 +15,12 @@
     </style>
   </head>
   <body>
-    <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums }, infowindow: { stadium: selectedStadium }"></div>
+    <div class="map-canvas" data-bind="googlemap: { stadiums: stadiums },
+          infowindow: { stadium: selectedStadium, messages: datastatus }"></div>
     <div id ="controls">
       <div id="stadium-list" class="stad-list-control">
         <div id="stad-list-menu">
-          <button id="stad-list-menu-toggle" class="stad-list-menu">Search/Filters 
+          <button id="stad-list-menu-toggle" class="stad-list-menu">Search/Filters
             <span class="fa fa-caret-down"></span></button>
         </div>
         <div id="stad-list-hideable" class="stad-menu-offsmall">
@@ -46,6 +47,17 @@
         <h1 data-bind="text: name"></h1>
         <div data-bind="foreach: teams">
           <p class="info-teams"><span data-bind="text: name"></span> (<span data-bind="text: league"></span>)</p>
+        </div>
+        <div data-bind="with: $parent.datastatus()">
+          <div class="info-messages" data-bind="visible: gettingdata">
+            <p><span class="fa fa-spinner fa-pulse"></span> Getting data.</p>
+          </div>
+          <div class="info-errors" data-bind="if: errors().length > 0">
+            <ul data-bind="foreach: errors">
+              <li><span class="fa-li fa fa-exclamation-triangle"></span>
+                <span data-bind="text: $data"></span></li>
+            </ul>
+          </div>
         </div>
         <div class="info-address" data-bind="visible: foursquareid">
           <div data-bind="foreach: address">

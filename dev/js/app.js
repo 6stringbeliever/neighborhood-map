@@ -121,30 +121,40 @@ $(function() {
       to articles, data, etc, causing duplicate data.
   */
   var remoteDataHelper = {
-    self: this,
     gettingNYTimesData: false,
     gettingFoursquareData: false,
     gettingFoursquarePhotos: false,
     /*
+        Returns true if any of our functions are currently getting data.
+    */
+    isGettingData: function() {
+      return this.gettingNYTimesData || this.gettingFoursquareData ||
+       this.gettingFoursquarePhotos;
+    },
+    /*
         Starts and manages the process for getting stadium data from
         remote sources.
     */
-    getRemoteData: function(stad) {
+    getRemoteData: function(stad, datastatus) {
+      datastatus.gettingdata(this.isGettingData());
+      datastatus.errors([]);
       if (stad.foursquareid() === null) {
-        this.getFoursquareData(stad);
+        this.getFoursquareData(stad, datastatus);
       } else if (stad.photos().length === 0) {
-        this.getFoursquarePhotos(stad);
+        this.getFoursquarePhotos(stad, datastatus);
       }
       if (stad.articles().length === 0) {
-        this.getNYTimesData(stad);
+        this.getNYTimesData(stad, datastatus);
       }
     },
     /*
         Download Foursquare data asynchronously.
     */
-    getFoursquareData: function(stad) {
+    getFoursquareData: function(stad, datastatus) {
+      var self = this;
       if (!self.gettingFoursquareData) {
         self.gettingFoursquareData = true;
+        datastatus.gettingdata(self.isGettingData());
         $.ajax({
           dataType: "json",
           url: buildFoursquareSearchQuery(stad.lat(), stad.lng(), stad.name()),
@@ -159,10 +169,13 @@ $(function() {
             }
             stad.foursquareid(venue.id);
             self.gettingFoursquareData = false;
+            datastatus.gettingdata(self.isGettingData());
           },
           error: function() {
             console.log("Error getting foursquare data");
             self.gettingFoursquareData = false;
+            datastatus.errors.push("Error getting Foursquare data");
+            datastatus.gettingdata(self.isGettingData());
           }
         });
       }
@@ -170,10 +183,12 @@ $(function() {
     /*
         Download photos asynchronously from 4sq and update when complete.
     */
-    getFoursquarePhotos: function(stad) {
+    getFoursquarePhotos: function(stad, datastatus) {
+      var self = this;
       if (!self.gettingFoursquarePhotos) {
         console.log("getting photos");
         self.gettingFoursquarePhotos = true;
+        datastatus.gettingdata(self.isGettingData());
         $.ajax({
           dataType: "json",
           url: buildFoursquarePhotosQuery(stad.foursquareid()),
@@ -187,10 +202,13 @@ $(function() {
               }
             }
             self.gettingFoursquarePhotos = false;
+            datastatus.gettingdata(self.isGettingData());
           },
           error: function(jqhxr, status, error) {
             console.log("Error getting photos");
             self.gettingFoursquarePhotos = false;
+            datastatus.errors.push("Error getting Foursquare photos");
+            datastatus.gettingdata(self.isGettingData());
           }
         });
       }
@@ -198,9 +216,11 @@ $(function() {
     /*
         Get NY Times articles for the stadium.
     */
-    getNYTimesData: function(stad) {
+    getNYTimesData: function(stad, datastatus) {
+      var self = this;
       if (!self.gettingNYTimesData) {
         self.gettingNYTimesData = true;
+        datastatus.gettingdata(self.isGettingData());
         $.ajax({
           dataType: "json",
           url: buildNYTimesArticleURL(stad.name()),
@@ -217,20 +237,24 @@ $(function() {
               console.log("Got NY Times articles");
             } else {
               console.log("Error getting NY Times articles");
+              datastatus.errors.push("Error getting NY Times articles");
             }
             self.gettingNYTimesData = false;
+            datastatus.gettingdata(self.isGettingData());
           },
           error: function(jqhxr, status, error) {
             console.log("Error getting NY Times articles");
             self.gettingNYTimesData = false;
+            datastatus.errors.push("Error getting NY Times articles");
+            datastatus.gettingdata(self.isGettingData());
           }
         });
       }
     },
     reset: function() {
-      self.gettingNYTimesData = false;
-      self.gettingFoursquareData = false;
-      self.gettingFoursquarePhotos = false;
+      this.gettingNYTimesData = false;
+      this.gettingFoursquareData = false;
+      this.gettingFoursquarePhotos = false;
     }
   }; // Remote data helper
 
@@ -245,6 +269,12 @@ $(function() {
     self.map = null;
 
     self.infowindow = null;
+
+    self.datastatus = ko.observable({ gettingdata: ko.observable(true),
+                        errors: ko.observableArray([]) });
+
+    // TODO: DEBUG REMOVE
+    window.ds = self.datastatus;
 
     self.searchtext = ko.observable("");
     self.searchtext.extend({ rateLimit: {
@@ -500,7 +530,6 @@ $(function() {
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.addListener(marker, 'click', function() {
-          remoteDataHelper.reset();
           bindingContext.showMarker(data);
         });
       }
@@ -528,11 +557,21 @@ $(function() {
       var ctx = bindingContext.$data;
       var infowindow = ctx.infowindow;
       var stadium = valueAccessor().stadium();
+      var messages = valueAccessor().messages();
+      console.log(messages);
+      /*
+          We don't need to do anything with these, just create the bindings
+          with the children of the datastatus object so it will update the
+          infowindow when they change.
+      */
+      var gettingdata = valueAccessor().messages().gettingdata();
+      var errors = valueAccessor().messages().errors();
+
       infowindow.close();
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
-        remoteDataHelper.getRemoteData(stadium);
+        remoteDataHelper.getRemoteData(stadium, messages);
       } else {
         console.log("Stadium is null");
       }
