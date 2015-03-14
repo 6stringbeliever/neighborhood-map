@@ -1,14 +1,11 @@
 h1 {
   color: $main-heading-color;
+  margin: 8px 0;
 }
 
 p, li, input, button {
   font: normal 14px $main-font-stack;
   color: $main-body-color;
-}
-
-h1 {
-  margin: 8px 0;
 }
 
 input {
