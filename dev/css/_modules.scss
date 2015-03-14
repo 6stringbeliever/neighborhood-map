@@ -126,6 +126,7 @@
   background-color: $error-background;
   width: 400px;
   max-width: 80%;
+  @include border-radius(8px);
 }
 
 .error-message {

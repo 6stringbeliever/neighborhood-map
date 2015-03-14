@@ -5,3 +5,9 @@
   -o-transition: $property $time $effect;
   transition: $property $time $effect;
 }
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
