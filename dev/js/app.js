@@ -137,12 +137,11 @@ $(function() {
         remote sources.
     */
     getRemoteData: function(stad, datastatus) {
+      console.log("Get remote data");
       datastatus.gettingdata(this.isGettingData());
       datastatus.errors([]);
       if (stad.foursquareid() === null) {
         this.getFoursquareData(stad, datastatus);
-      } else if (stad.photos().length === 0) {
-        this.getFoursquarePhotos(stad, datastatus);
       }
       if (stad.articles().length === 0) {
         this.getNYTimesData(stad, datastatus);
@@ -171,6 +170,9 @@ $(function() {
             stad.foursquareid(venue.id);
             self.gettingFoursquareData = false;
             datastatus.gettingdata(self.isGettingData());
+            if (stad.photos().length === 0) {
+              self.getFoursquarePhotos(stad, datastatus);
+            }
           },
           error: function() {
             console.log("Error getting foursquare data");
@@ -336,6 +338,7 @@ $(function() {
         stadium.marker().setAnimation(null);
       }, 2000);
       self.selectedStadium(stadium);
+      remoteDataHelper.getRemoteData(stadium, self.datastatus());
     };
 
     /*
@@ -402,7 +405,7 @@ $(function() {
       }
       /* Stadiums isn't dependent on visible since we call visible.peek()
          in the map binding, so we have to call valueHasMutated on stadiums
-         here to get the mapt to redraw markers. */
+         here to get the map to redraw markers. */
       self.stadiums.valueHasMutated();
       self.emptysearch(emptysearch);
       setLastChildToClass(".stad-list-ul", "stad-list-last");
@@ -530,6 +533,7 @@ $(function() {
 
 
       function addClickListener(marker, data, bindingContext) {
+        google.maps.event.clearListeners(marker, 'click');
         google.maps.event.addListener(marker, 'click', function() {
           bindingContext.showMarker(data);
         });
@@ -559,19 +563,21 @@ $(function() {
       var infowindow = ctx.infowindow;
       var stadium = valueAccessor().stadium();
       var messages = valueAccessor().messages();
-      /*
-          We don't need to do anything with these, just create the bindings
-          with the children of the datastatus object so it will update the
-          infowindow when they change.
-      */
-      var gettingdata = valueAccessor().messages().gettingdata();
-      var errors = valueAccessor().messages().errors();
 
       infowindow.close();
       if (stadium !== null) {
         infowindow.open(ctx.map, stadium.marker());
         addDOMListener(infowindow);
-        remoteDataHelper.getRemoteData(stadium, messages);
+        /*
+            We don't need to do anything with these, just create the bindings
+            with the children of the stadium and datastatus objects so it will
+            update the infowindow when they change.
+        */
+        var gettingdata = valueAccessor().messages().gettingdata();
+        var errors = valueAccessor().messages().errors();
+        var photos = valueAccessor().stadium().photos();
+        var address = valueAccessor().stadium().address();
+        var articles = valueAccessor().stadium().articles();
       } else {
         console.log("Stadium is null");
       }
