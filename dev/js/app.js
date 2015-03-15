@@ -1,8 +1,5 @@
 $(function() {
 
-  // TODO: Styles on messages
-  // TODO: Gulp test vs. build folder
-
   /*
       Stadium object. Holds all the data for a single stadium.
   */
@@ -275,9 +272,6 @@ $(function() {
 
     self.datastatus = ko.observable({ gettingdata: ko.observable(true),
                         errors: ko.observableArray([]) });
-
-    // TODO: DEBUG REMOVE
-    window.ds = self.datastatus;
 
     self.searchtext = ko.observable("");
     self.searchtext.extend({ rateLimit: {

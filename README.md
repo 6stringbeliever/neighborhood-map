@@ -2,13 +2,16 @@
 
 Project 5 for the Udacity front-end nanodegree.
 
+This is map of all stadiums in the major professional sports leagues (MLB, NBA,
+NFL, NHL, and MLS)
+
 (Why yes, that is a big neighborhood...)
 
 ## Installation
 
 1. Download the repo.
 1. The optimized content is in the dist directory. The source code is in the dev directory.
-1. Run the default Gulp task to re-minify everything if you make changes to the dev code.
+1. Run the "gulp build" task to clean the dist directory and re-minify everything if you make changes to the dev code.
 
 ## Sites/Tools Used
 
