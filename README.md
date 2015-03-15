@@ -12,7 +12,7 @@ Marker/filter icons were created by me in Sketch.
 ## Installation
 
 1. Download the repo.
-1. The optimized content is in the dist directory. The source code is in the dev directory.
+1. The optimized content is in the dist directory. Just launch index.html. The source code is in the dev directory.
 1. Run the "gulp build" task to clean the dist directory and re-minify everything if you make changes to the dev code.
 
 ## Sites/Tools Used
