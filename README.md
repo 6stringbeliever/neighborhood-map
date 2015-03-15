@@ -3,9 +3,11 @@
 Project 5 for the Udacity front-end nanodegree.
 
 This is map of all stadiums in the major professional sports leagues (MLB, NBA,
-NFL, NHL, and MLS)
+NFL, NHL, and MLS). (Why yes, that is a big neighborhood...) We get location data
+and photos from Foursquare and articles from the NY Times. The stadium list can
+be searched by stadium name or teams and can be filtered by sport.
 
-(Why yes, that is a big neighborhood...)
+Marker/filter icons were created by me in Sketch.
 
 ## Installation
 
