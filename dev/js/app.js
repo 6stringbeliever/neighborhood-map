@@ -114,9 +114,8 @@ $(function() {
   /*
       Keep track of whether an asynchronous call to one of our data sources is
       in progress. Don't make a new call to the source until the first one
-      finishes. Prevents a race condition where one call finishes and causes
-      update to infowindow before another call finishes, leaving two calls
-      to articles, data, etc, causing duplicate data.
+      finishes. Used to track the status messages on the infowindow and make
+      sure we're not making extra calls.
   */
   var remoteDataHelper = {
     gettingNYTimesData: false,
@@ -325,7 +324,7 @@ $(function() {
         Controls the bouncey animation on select.
     */
     self.showMarker = function(stadium) {
-      self.toggleMenuOpen();
+      self.closeMenu();
       remoteDataHelper.reset();
       stadium.marker().setAnimation(google.maps.Animation.BOUNCE);
       window.setTimeout(function() {
@@ -341,10 +340,18 @@ $(function() {
         clicked.
     */
     self.toggleMenuOpen = function() {
-      console.log("toggle");
       $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
       $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down');
       $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up');
+    };
+
+    /*
+        Closes the search, filters, and stadium list.
+    */
+    self.closeMenu = function() {
+      $('#stad-list-hideable').toggleClass('stad-menu-offsmall', true);
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down', true);
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up', false);
     };
 
     /*
