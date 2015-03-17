@@ -26,7 +26,7 @@
         <div id="stad-list-hideable" class="stad-menu-offsmall">
           <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/>
           <ul class="stad-list-filters" data-bind="foreach: filters">
-            <li data-bind="click: $parent.toggleFilter">
+            <li data-bind="click: $parent.toggleFilter, attr: {title: 'Show/Hide ' + league() + ' Stadiums'}">
               <img data-bind="attr: {src: imageSrc, alt: league}" />
             </li>
           </ul>
