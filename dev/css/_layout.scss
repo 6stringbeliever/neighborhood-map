@@ -1,6 +1,7 @@
 #info-window {
   width: 325px;
   height: 275px;
+  overflow-y: scroll;
   @media screen and (max-width: 749px) {
     width: 250px;
   }
