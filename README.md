@@ -1,5 +1,7 @@
 # American Stadiums Map
 
+[View the project live.](http://6stringbeliever.github.io/neighborhood-map/)
+
 Project 5 for the Udacity front-end nanodegree.
 
 This is map of all stadiums in the major professional sports leagues (MLB, NBA,
