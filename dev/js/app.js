@@ -109,6 +109,11 @@ $(function() {
       }
       return directory + filename;
     }, this);
+    this.hover = ko.computed(function() {
+      var hoverstring = this.display() ? 'Hide ' : 'Show ';
+      hoverstring += this.league() + ' Stadiums';
+      return hoverstring;
+    }, this);
   };
 
   /*
