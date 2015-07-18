@@ -281,6 +281,9 @@ $(function() {
     self.searchtext.extend({ rateLimit: {
                                 timeout: 400,
                                 method: "notifyWhenChangesStop" } });
+    self.clearSearchText = function() {
+      this.searchtext('');
+    };
 
     /* List of leagues to filter */
     self.filters = ko.observableArray([]);

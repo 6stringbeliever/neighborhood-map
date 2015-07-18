@@ -24,7 +24,7 @@
             <span class="fa fa-caret-down"></span></button>
         </div>
         <div id="stad-list-hideable" class="stad-menu-offsmall">
-          <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/>
+          <input type="search" placeholder="Search stadiums..." id="stadium-search" data-bind="textInput: searchtext"/><button class="search-clear" data-bind="click: clearSearchText">X</button>
           <ul class="stad-list-filters" data-bind="foreach: filters">
             <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
               <img data-bind="attr: {src: imageSrc, alt: league}" />
