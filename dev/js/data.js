@@ -38,7 +38,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Columbus Crew Stadium',
+    'name': 'Mapfire Stadium',
     'lat': 40.009444,
     'lng': -82.991111,
     'teams': [{ 'name': 'Columbus Crew',
@@ -404,13 +404,6 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Nassau Veterans Memorial Coliseum',
-    'lat': 40.722778,
-    'lng': -73.590556,
-    'teams': [{ 'name': 'New York Islanders',
-                'league': 'NHL' }]
-  },
-  {
     'name': 'Nationwide Arena',
     'lat': 39.969283,
     'lng': -83.006111,
@@ -461,7 +454,9 @@ var stadiumData = [
     'lat': 40.682661,
     'lng': -73.975225,
     'teams': [{ 'name': 'Brooklyn Nets',
-                'league': 'NBA' }]
+                'league': 'NBA' },
+              { 'name': 'New York Islanders',
+                'league': 'NHL'}]
   },
   {
     'name': 'Bankers Life Fieldhouse',
@@ -734,7 +729,7 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'LP Field',
+    'name': 'Nissan Stadium',
     'lat': 36.166389,
     'lng': -86.771389,
     'teams': [{ 'name': 'Tennessee Titans',
