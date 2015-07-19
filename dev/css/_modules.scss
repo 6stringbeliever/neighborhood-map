@@ -3,9 +3,36 @@
   margin: 16px;
   padding: 0px;
   width: 246px;
+}
+
+.search-box {
+  margin: 0;
+  padding: 0;
+  height: 36px;
+  background: white;
+  border: 2px solid $light-border;
   input {
-    width: 230px;
+    display: inline-block;
+    margin: 0;
+    outline: 0;
+    width: 190px;
+    line-height: 20px;
+    border: none;
   }
+}
+
+.search-box-clear {
+  display: inline-block;
+  margin: 0;
+  outline: 0;
+  width: 40px;
+  padding: 6px;
+  font-size: 18px;
+  line-height: 20px;
+  min-width: 40px;
+  min-height: 34px;
+  background-color: white;
+  border: none;
 }
 
 .stad-list-menu {
