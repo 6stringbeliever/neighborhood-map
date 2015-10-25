@@ -13,8 +13,10 @@ $(function() {
     this.teams = ko.observableArray([]);
 
     for (var i = 0; i < data.teams.length; i++) {
-      this.teams.push({'name': ko.observable(data.teams[i].name),
-                       'league': ko.observable(data.teams[i].league)});
+      this.teams.push({
+        'name': ko.observable(data.teams[i].name),
+        'league': ko.observable(data.teams[i].league)
+      });
     }
 
     /*
@@ -39,9 +41,9 @@ $(function() {
      */
     this.mapPoint = ko.computed(function() {
       return {
-              'lat': this.lat(),
-              'lng': this.lng()
-             };
+        'lat': this.lat(),
+        'lng': this.lng()
+      };
     }, this);
 
     /*
@@ -63,10 +65,10 @@ $(function() {
        Returns a Google maps marker for the stadium.
     */
     this.marker = ko.observable(new google.maps.Marker({
-               position: this.mapPoint(),
-               title: this.name(),
-               icon: this.icon()
-             }));
+      position: this.mapPoint(),
+      title: this.name(),
+      icon: this.icon()
+    }));
 
     /*
        Returns a single string containing the searchable text for this
@@ -274,13 +276,18 @@ $(function() {
 
     self.infowindow = null;
 
-    self.datastatus = ko.observable({ gettingdata: ko.observable(true),
-                        errors: ko.observableArray([]) });
+    self.datastatus = ko.observable({
+      gettingdata: ko.observable(true),
+      errors: ko.observableArray([])
+    });
 
     self.searchtext = ko.observable("");
-    self.searchtext.extend({ rateLimit: {
-                                timeout: 400,
-                                method: "notifyWhenChangesStop" } });
+    self.searchtext.extend({
+      rateLimit: {
+        timeout: 400,
+        method: "notifyWhenChangesStop"
+      }
+    });
     self.clearSearchText = function() {
       this.searchtext('');
     };
@@ -291,9 +298,12 @@ $(function() {
     self.emptysearch = ko.observable(false);
 
     self.stadiums = ko.observableArray([]);
-    self.stadiums.extend({ rateLimit: {
-                              timeout: 20,
-                              method: "notifyWhenChangesStop"} });
+    self.stadiums.extend({
+      rateLimit: {
+        timeout: 20,
+        method: "notifyWhenChangesStop"
+      }
+    });
 
     /* Alphabetize the stadium list */
     stadiumDataAlpha = stadiumData.sort(function(a, b) {
@@ -321,9 +331,12 @@ $(function() {
     }
 
     self.selectedStadium = ko.observable(null);
-    self.selectedStadium.extend({ rateLimit: {
-                              timeout: 10,
-                              method: "notifyWhenChangesStop"} });
+    self.selectedStadium.extend({
+      rateLimit: {
+        timeout: 10,
+        method: "notifyWhenChangesStop"
+      }
+    });
 
     /*
         Sets the stadium to show a marker for and resets the remote data
@@ -539,7 +552,6 @@ $(function() {
           console.log("Removing from map");
         }
       }
-
 
       function addClickListener(marker, data, bindingContext) {
         google.maps.event.clearListeners(marker, 'click');
