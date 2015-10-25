@@ -54,7 +54,7 @@
           <div class="info-messages" data-bind="visible: gettingdata">
             <p><span class="fa fa-spinner fa-pulse"></span> Getting data.</p>
           </div>
-          <div class="info-errors" data-bind="visible: errors().length > 0, if: errors().length > 0">
+          <div class="info-errors" data-bind="visible: errors().length > 0">
             <ul data-bind="foreach: errors">
               <li><span class="fa fa-exclamation-triangle"></span>
                 <span data-bind="text: $data"></span></li>
