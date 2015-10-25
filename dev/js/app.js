@@ -345,7 +345,7 @@ $(function() {
         Controls the bouncey animation on select.
     */
     self.showMarker = function(stadium) {
-      self.closeMenu();
+      self.toggleMenu(false);
       remoteDataHelper.reset();
       stadium.marker().setAnimation(google.maps.Animation.BOUNCE);
       window.setTimeout(function() {
@@ -358,21 +358,13 @@ $(function() {
     /*
         The button to show or hide the search, filters, and stadium list appears
         based on screen size. This toggles these items when the button is
-        clicked.
+        clicked. True to open, false to close. Don't pass a value to open
+        to toggle.
     */
-    self.toggleMenuOpen = function() {
-      $('#stad-list-hideable').toggleClass('stad-menu-offsmall');
-      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down');
-      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up');
-    };
-
-    /*
-        Closes the search, filters, and stadium list.
-    */
-    self.closeMenu = function() {
-      $('#stad-list-hideable').toggleClass('stad-menu-offsmall', true);
-      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down', true);
-      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up', false);
+    self.toggleMenu = function(open) {
+      $('#stad-list-hideable').toggleClass('stad-menu-offsmall', typeof open ==='undefined' ? open : !open);
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-down', typeof open ==='undefined' ? open : !open);
+      $('#stad-list-menu-toggle .fa').toggleClass('fa-caret-up', open);
     };
 
     /*
@@ -525,7 +517,7 @@ $(function() {
         ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
         list.appendTo('#stadium-list-control');
         $('#stad-list-menu-toggle').click(function() {
-          ctx.toggleMenuOpen();
+          ctx.toggleMenu();
         });
       });
     },
