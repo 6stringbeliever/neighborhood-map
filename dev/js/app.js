@@ -1,5 +1,7 @@
 $(function() {
 
+  'use strict';
+
   /*
       Stadium object. Holds all the data for a single stadium.
   */
@@ -270,7 +272,6 @@ $(function() {
     var league;
     var stadiumDataAlpha;
     var leagues = [];
-    var i;
 
     self.map = null;
 
@@ -322,7 +323,7 @@ $(function() {
 
     for (var stadium in stadiumDataAlpha) {
       self.stadiums.push(new Stadium(stadiumData[stadium]));
-      for (i = 0; i < stadiumData[stadium].teams.length; i++) {
+      for (var i = 0; i < stadiumData[stadium].teams.length; i++) {
         var team = stadiumData[stadium].teams[i];
         if (leagues.indexOf(team.league) < 0) {
           leagues.push(team.league);
@@ -382,7 +383,6 @@ $(function() {
     self.filterList = function() {
       var stad;
       var visible;
-      var i, j;
       /* Convert the value in the search box to all upper case, trim white
          space and split into an array of terms. */
       var searchstring = self.searchtext().toUpperCase().trim();
@@ -409,7 +409,7 @@ $(function() {
 
       /* Loop through all the stadiums. Hide the stadium if it doesn't match
          the league filters. */
-      for (i = 0; i < self.stadiums().length; i++) {
+      for (var i = 0; i < self.stadiums().length; i++) {
         stad = self.stadiums()[i];
         visible = stadiumClearsFilters(stad, searchterms, visibleleagues);
         stad.visible(visible);
@@ -430,8 +430,8 @@ $(function() {
        so the list is filtered any time either is changed.
     */
     self.searchtext.subscribe(self.filterList);
-    for (i = 0; i < leagues.length; i++) {
-      league = new Filter({ 'league': leagues[i], 'display': true });
+    for (var j = 0; j < leagues.length; j++) {
+      league = new Filter({ 'league': leagues[j], 'display': true });
       league.display.subscribe(self.filterList);
       self.filters.push(league);
     }
@@ -443,9 +443,9 @@ $(function() {
     one of its teams must be in a visible league.
   */
   var stadiumClearsFilters = function(stadium, searchterms, visibleleagues) {
-    visible = false;
+    var visible = false;
     if (isStadiumLeagueDisplayed(stadium, visibleleagues)) {
-      for (j = 0; j < searchterms.length; j++) {
+      for (var j = 0; j < searchterms.length; j++) {
         if (stadium.searchString().indexOf(searchterms[j]) >= 0) {
           visible = true;
           break;
