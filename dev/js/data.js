@@ -515,7 +515,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'EnergySolutions Arena',
+    'name': 'Vivint Smart Home Arena',
     'lat': 40.768333,
     'lng': -111.901111,
     'teams': [{ 'name': 'Utah Jazz',
@@ -550,7 +550,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'US Airways Center',
+    'name': 'Talking Stick Resort Arena',
     'lat': 33.445833,
     'lng': -112.071389,
     'teams': [{ 'name': 'Phoenix Suns',
@@ -599,10 +599,10 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'Edward Jones Dome',
-    'lat': 38.632778,
-    'lng': -90.188611,
-    'teams': [{ 'name': 'St. Louis Rams',
+    'name': 'Los Angeles Memorial Coliseum',
+    'lat': 34.014167,
+    'lng': -118.287778,
+    'teams': [{ 'name': 'Los Angeles Rams',
                 'league': 'NFL' }]
   },
   {
@@ -636,9 +636,9 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'TCF Bank Stadium',
-    'lat': 44.976,
-    'lng': -93.225,
+    'name': 'U.S. Bank Stadium',
+    'lat': 44.973889,
+    'lng': -93.258056,
     'teams': [{ 'name': 'Minnesota Vikings',
                 'league': 'NFL' }]
   },
@@ -822,7 +822,7 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'Sporting Park',
+    'name': 'Children\'s Mercy Park',
     'lat': 39.1218,
     'lng': -94.8237,
     'teams': [{ 'name': 'Sporting Kansas City',
@@ -864,7 +864,7 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'PPL Park',
+    'name': 'Talen Energy Stadium',
     'lat': 39.832222,
     'lng': -75.378889,
     'teams': [{ 'name': 'Philadelphia Union',
