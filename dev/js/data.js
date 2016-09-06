@@ -13,7 +13,7 @@ var stadiumData = [
                 'league': 'MLB' }]
   },
   {
-    'name': 'O.co Coliseum',
+    'name': 'Oakland Coliseum',
     'lat': 37.751667,
     'lng': -122.200556,
     'teams': [{ 'name': 'Oakland Athletics',
@@ -289,9 +289,9 @@ var stadiumData = [
                 'league': 'NHL' }]
   },
   {
-    'name': 'Rexall Place',
-    'lat': 53.571389,
-    'lng': -113.456111,
+    'name': 'Rogers Place',
+    'lat': 53.546944,
+    'lng': -113.497778,
     'teams': [{ 'name': 'Edmonton Oilers',
                 'league': 'NHL' }]
   },
@@ -365,7 +365,7 @@ var stadiumData = [
                 'league': 'NHL' }]
   },
   {
-    'name': 'First Niagra Center',
+    'name': 'KeyBank Center',
     'lat': 42.875,
     'lng': -78.876389,
     'teams': [{ 'name': 'Buffalo Sabres',
@@ -501,7 +501,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Time Warner Cable Arena',
+    'name': 'Spectrum Center',
     'lat': 35.225,
     'lng': -80.839167,
     'teams': [{ 'name': 'Charlotte Hornets',
@@ -543,7 +543,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Sleep Train Arena',
+    'name': 'Golden 1 Center',
     'lat': 38.649167,
     'lng': -121.518056,
     'teams': [{ 'name': 'Sacramento Kings',
@@ -609,7 +609,7 @@ var stadiumData = [
     'name': 'CenturyLink Field',
     'lat': 47.5952,
     'lng': -122.3316,
-    'teams': [{ 'name': 'St. Louis Rams',
+    'teams': [{ 'name': 'Seattle Seahawks',
                 'league': 'NFL' },
               { 'name': 'Seattle Sounders FC',
                 'league': 'MLS'}]
@@ -771,14 +771,14 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'Sun Life Stadium',
+    'name': 'Hard Rock Stadium',
     'lat': 25.958056,
     'lng': -80.238889,
     'teams': [{ 'name': 'Miami Dolphins',
                 'league': 'NFL' }]
   },
   {
-    'name': 'Ralph Wilson Stadium',
+    'name': 'New Era Field',
     'lat': 42.774,
     'lng': -78.787,
     'teams': [{ 'name': 'Buffalo Bills',
@@ -878,7 +878,7 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'Orlando Citrus Bowl Stadium',
+    'name': 'Camping World Stadium',
     'lat': 28.539167,
     'lng': -81.402778,
     'teams': [{ 'name': 'Orlando City SC',
