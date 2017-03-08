@@ -1,7 +1,7 @@
 var stadiumData = [
-  { 'name': 'Turner Field',
-    'lat':  33.735278,
-    'lng': -84.389444,
+  { 'name': 'SunTrust Park',
+    'lat':  33.89,
+    'lng': -84.468,
     'teams': [{ 'name': 'Atlanta Braves',
                 'league': 'MLB' }]
   },
@@ -142,7 +142,7 @@ var stadiumData = [
                 'league': 'MLB' }]
   },
   {
-    'name': 'U.S. Cellular Field',
+    'name': 'Guaranteed Rate Field',
     'lat': 41.83,
     'lng': -87.633889,
     'teams': [{ 'name': 'Chicago White Sox',
@@ -694,13 +694,6 @@ var stadiumData = [
                 'league': 'NFL' }]
   },
   {
-    'name': 'Qualcomm Stadium',
-    'lat': 32.783056,
-    'lng': -117.119444,
-    'teams': [{ 'name': 'San Diego Chargers',
-                'league': 'NFL' }]
-  },
-  {
     'name': 'Sports Authority Field at Mile High',
     'lat': 39.743889,
     'lng': -105.02,
@@ -794,11 +787,13 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'Georgia Dome',
-    'lat': 33.7575,
-    'lng': -84.400833,
+    'name': 'Mercedes-Benz Stadium',
+    'lat': 33.755361,
+    'lng': -84.401192,
     'teams': [{ 'name': 'Atlanta Falcons',
-                'league': 'NFL' }]
+                'league': 'NFL' },
+              { 'name': 'Atlanta United FC',
+                'league': 'MLS' }]
   },
   {
     'name': 'Toyota Stadium',
@@ -819,7 +814,9 @@ var stadiumData = [
     'lat': 33.864444,
     'lng': -118.261111,
     'teams': [{ 'name': 'Los Angeles Galaxy',
-                'league': 'MLS' }]
+                'league': 'MLS' },
+              { 'name': 'Los Angeles Chargers',
+                'league': 'NFL' }]
   },
   {
     'name': 'Children\'s Mercy Park',
@@ -878,9 +875,9 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'Camping World Stadium',
-    'lat': 28.539167,
-    'lng': -81.402778,
+    'name': 'Orlando City Stadium',
+    'lat': 28.541065,
+    'lng': -81.389035,
     'teams': [{ 'name': 'Orlando City SC',
                 'league': 'MLS' }]
   },
@@ -910,6 +907,20 @@ var stadiumData = [
     'lat': 37.351389,
     'lng': -121.925,
     'teams': [{ 'name': 'San Jose Earthquakes',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'TCF Bank Stadium',
+    'lat': 44.976,
+    'lng': -93.225,
+    'teams': [{ 'name': 'Minnesota United FC',
+                'league': 'MLS' }]
+  },
+  {
+    'name': 'Bobby Dodd Stadium',
+    'lat': 33.7725,
+    'lng': -84.392778,
+    'teams': [{ 'name': 'Atlanta United FC',
                 'league': 'MLS' }]
   }
 ]; // stadiumData
