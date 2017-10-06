@@ -45,7 +45,7 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'MTS Center',
+    'name': 'Bell MTS Place',
     'lat': 49.892778,
     'lng': -97.143611,
     'teams': [{ 'name': 'Winnipeg Jets',
@@ -372,11 +372,13 @@ var stadiumData = [
                 'league': 'NHL' }]
   },
   {
-    'name': 'Joe Louis Arena',
-    'lat': 42.325278,
-    'lng': -83.051389,
+    'name': 'Little Caesars Arena',
+    'lat': 42.341172,
+    'lng': -83.054911,
     'teams': [{ 'name': 'Detroit Red Wings',
-                'league': 'NHL' }]
+                'league': 'NHL' },
+              { 'name': 'Detroit Pistons',
+                'league': 'NBA' }]
   },
   {
     'name': 'TD Garden',
@@ -388,7 +390,7 @@ var stadiumData = [
                 'league': 'NBA' }]
   },
   {
-    'name': 'Consol Energy Center',
+    'name': 'PPG Paints Arena',
     'lat': 40.439444,
     'lng': -79.989167,
     'teams': [{ 'name': 'Pittsburgh Penguins',
@@ -425,7 +427,7 @@ var stadiumData = [
                 'league': 'NHL' }]
   },
   {
-    'name': 'Verizon Center',
+    'name': 'Capital One Arena',
     'lat': 38.898056,
     'lng': -77.020833,
     'teams': [{ 'name': 'Washington Capitals',
@@ -470,13 +472,6 @@ var stadiumData = [
     'lat': 43.043611,
     'lng': -87.916944,
     'teams': [{ 'name': 'Milwaukee Bucks',
-                'league': 'NBA' }]
-  },
-  {
-    'name': 'The Palace of Auburn Hills',
-    'lat': 42.696944,
-    'lng': -83.245556,
-    'teams': [{ 'name': 'Detroit Pistons',
                 'league': 'NBA' }]
   },
   {
@@ -917,10 +912,10 @@ var stadiumData = [
                 'league': 'MLS' }]
   },
   {
-    'name': 'Bobby Dodd Stadium',
-    'lat': 33.7725,
-    'lng': -84.392778,
-    'teams': [{ 'name': 'Atlanta United FC',
-                'league': 'MLS' }]
+    'name': 'T-Mobile Arena',
+    'lat': 36.102778,
+    'lng': -115.178333,
+    'teams': [{ 'name': 'Vegas Golden Nights',
+                'league': 'NHL' }]
   }
 ]; // stadiumData
